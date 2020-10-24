@@ -17,7 +17,7 @@ if [ "$USAGE" == "1" ]; then
     echo "###########################################################"
     echo "Usage:"
     echo "Run this script from backend folder"
-    echo "pass -d to cache external deps"
+    echo "pass -d to create/update lock file for external deps"
     echo "pass -t to cache types used in main file"
     echo "pass -r to reload external deps when freshly cloned this repo"
     echo "###########################################################"
