@@ -14,4 +14,4 @@
                 - cache types used in main file
                 - reload cached external deps
 - launch for dev: ../scripts/launch_website.sh -w -f
-- setup ide: ../scripts/cache -d -t -r
+- setup ide: ../scripts/cache -r -t
