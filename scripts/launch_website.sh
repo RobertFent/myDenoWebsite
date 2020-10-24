@@ -23,8 +23,8 @@ fi
 
 # todo only launch without -h as arg
 
-# default param
-DENO_ARGS="--allow-net"
+# default params
+DENO_ARGS="--allow-net --allow-env --allow-read --allow-write --allow-plugin"
 
 # add params to deno
 if [ "$FORCE" == "1" ]; then

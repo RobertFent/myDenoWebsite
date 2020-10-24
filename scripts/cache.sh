@@ -27,15 +27,15 @@ fi
 REGEX=".*\/backend"
 if [[ "$PWD" =~ $REGEX ]]; then
     if [ "$DEPS" == "1" ]; then
-        deno cache --lock=lock.json --lock-write ./deps.ts
+        deno cache --unstable --lock=lock.json --lock-write ./deps.ts
         echo "Wrote external deps into ${PWD}/deps.ts"
     fi
     if [ "$TYPES" == "1" ]; then
-        deno cache src/Server.ts
+        deno cache --unstable src/Server.ts
         echo "Cached types used in main file"
     fi
     if [ "$RELOAD" == "1" ]; then
-        deno cache --reload --lock=lock.json ./deps.ts
+        deno cache --unstable --reload --lock=lock.json ./deps.ts
         echo "Reloaded external deps"
     fi
 else echo  "Pls run this script from the backend folder"

@@ -1,3 +1,6 @@
 # ignore everything in config except default
 config/*
 !config/default.json
+
+# ignore deno plugins; they will be installed when reloading cached deps
+.deno_plugins
