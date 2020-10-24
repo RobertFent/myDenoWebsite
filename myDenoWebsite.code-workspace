@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "name": "myDenoWebsite",
+            "path": "."
+        },
+        {
+            "name": "Backend",
+            "path": "./backend"
+        }
+    ],
+    "settings": {}
+}
