@@ -23,19 +23,21 @@ if [ "$USAGE" == "1" ]; then
     echo "###########################################################"
 fi
 
+DENO_ARGS="-c ./tsconfig.json --unstable"
+
 # check if script is in backend folder
 REGEX=".*\/backend"
 if [[ "$PWD" =~ $REGEX ]]; then
     if [ "$DEPS" == "1" ]; then
-        deno cache --unstable --lock=lock.json --lock-write ./deps.ts
+        deno cache $DENO_ARGS --lock=lock.json --lock-write ./deps.ts
         echo "Wrote external deps into ${PWD}/deps.ts"
     fi
     if [ "$TYPES" == "1" ]; then
-        deno cache --unstable src/Server.ts
+        deno cache $DENO_ARGS src/Server.ts
         echo "Cached types used in main file"
     fi
     if [ "$RELOAD" == "1" ]; then
-        deno cache --unstable --reload --lock=lock.json ./deps.ts
+        deno cache $DENO_ARGS --reload --lock=lock.json ./deps.ts
         echo "Reloaded external deps"
     fi
 else echo  "Pls run this script from the backend folder"
