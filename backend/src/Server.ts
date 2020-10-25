@@ -1,7 +1,7 @@
-import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, send } from "../deps.ts";
+import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, send, red } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
-import { cookieUser, errorHandler, notFound, requestLogger } from "./middlewares/middleware.ts";
+import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
 import { staticDir } from "./utils/utils.ts";
 
 // server config
@@ -25,29 +25,23 @@ const setupApp = (): Application<Record<string, any>> => {
     // todo get 405, 501 instead of 404
     app.use(router.allowedMethods());
 
-    const denjuckEngine = engineFactory.getDenjuckEngine();
-    const oakAdapter = adapterFactory.getOakAdapter();
+    app.use(staticFileHandler);
+    app.use(viewEngineSetter);
 
-    // Allowing Static file to fetch from server
-    app.use(async (ctx, next) => {
-        await send(ctx, ctx.request.url.pathname, {
-            root: staticDir
-        })
-        next()
-    });
-
-    // Passing view-engine as middleware
-    app.use(viewEngine(oakAdapter, denjuckEngine));
-
+    // todo getting images returns 404 if this middleware is active
     // used when no route matches
     // app.use(notFound);
 
-    // setup listener
+    // setup listeners
     app.addEventListener("listen", (event) => {
         console.log(
-            bold("Start listening on ") +
+            bold('Start listening on ') +
             yellow(`http://${event.hostname}:${event.port}`),
         );
+    });
+
+    app.addEventListener('error', (event) => {
+        console.log(bold('Error: ') + red(event.message))
     });
 
     return app;

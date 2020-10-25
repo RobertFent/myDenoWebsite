@@ -1,8 +1,8 @@
-import { Context, cyan, green, HttpError, Status } from "../../deps.ts";
-import { generateTimestamp } from "../utils/utils.ts";
+import { adapterFactory, Context, cyan, engineFactory, green, HttpError, send, Status, viewEngine } from "../../deps.ts";
+import { generateTimestamp, staticDir } from "../utils/utils.ts";
 
 // deno-lint-ignore no-explicit-any
-export const errorHandler = async (ctx: Context, next: () => any) => {
+export const errorHandler = async (ctx: Context, next: () => any): Promise<void> => {
     try {
         await next();
     } catch (error) {
@@ -27,20 +27,37 @@ export const errorHandler = async (ctx: Context, next: () => any) => {
 };
 
 // deno-lint-ignore no-explicit-any
-export const requestLogger = async (ctx: Context, next: () => any) => {
+export const requestLogger = async (ctx: Context, next: () => any): Promise<void> => {
     console.log(`${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)}`);
     await next();
 };
 
 // deno-lint-ignore no-explicit-any
-export const cookieUser = async (ctx: Context, next: () => any) => {
+export const cookieUser = async (ctx: Context, next: () => any): Promise<void> => {
     const lastVisit = ctx.cookies.get('LastVisit');
     ctx.cookies.set('LastVisit', generateTimestamp())
     if (!lastVisit) console.log(`New user: ${ctx.request.ip}`);
     await next();
 }
 
-export const notFound = () => {
+// Allowing Static file to fetch from server
+// deno-lint-ignore no-explicit-any
+export const staticFileHandler = async (ctx: Context, next: () => any): Promise<void> => {
+    await send(ctx, ctx.request.url.pathname, {
+        root: staticDir
+    });
+    await next();
+}
+
+// Passing view-engine as middleware
+// deno-lint-ignore no-explicit-any
+export const viewEngineSetter = (): any => {
+    const ejsEngine = engineFactory.getEjsEngine();
+    const oakAdapter = adapterFactory.getOakAdapter();
+    return viewEngine(oakAdapter, ejsEngine);
+}
+
+export const notFound = (): HttpError => {
     const httpError = new HttpError();
     httpError.status = Status.NotFound;
     throw httpError;
