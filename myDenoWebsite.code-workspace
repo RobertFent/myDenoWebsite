@@ -5,9 +5,15 @@
             "path": "."
         },
         {
-            "name": "Backend",
+            "name": "backend",
             "path": "./backend"
+        },
+        {
+            "name": "frontend",
+            "path": "./frontend"
         }
     ],
-    "settings": {}
+    "settings": {
+        "debug.javascript.unmapMissingSources": true
+    }
 }

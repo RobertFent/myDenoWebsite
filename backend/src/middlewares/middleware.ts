@@ -1,5 +1,5 @@
 import { adapterFactory, Context, cyan, engineFactory, green, HttpError, send, Status, viewEngine } from "../../deps.ts";
-import { generateTimestamp, staticDir } from "../utils/utils.ts";
+import { generateTimestamp, pagesDir, staticDir } from "../utils/utils.ts";
 
 // deno-lint-ignore no-explicit-any
 export const errorHandler = async (ctx: Context, next: () => any): Promise<void> => {
@@ -46,7 +46,7 @@ export const staticFileHandler = async (ctx: Context, next: () => any): Promise<
     await send(ctx, ctx.request.url.pathname, {
         root: staticDir
     });
-    await next();
+    next();
 }
 
 // Passing view-engine as middleware

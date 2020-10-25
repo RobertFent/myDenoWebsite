@@ -2,7 +2,6 @@ import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, s
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
-import { staticDir } from "./utils/utils.ts";
 
 // server config
 const port = 8080;
@@ -20,14 +19,13 @@ const setupApp = (): Application<Record<string, any>> => {
     app.use(requestLogger);
     app.use(cookieUser);
 
+    app.use(viewEngineSetter());
+    
     // init routes and its methods
     app.use(router.routes());
     // todo get 405, 501 instead of 404
     app.use(router.allowedMethods());
-
     app.use(staticFileHandler);
-    app.use(viewEngineSetter);
-
     // todo getting images returns 404 if this middleware is active
     // used when no route matches
     // app.use(notFound);

@@ -1,17 +1,10 @@
 import { RouterContext, HttpError, Status } from "../../deps.ts";
-import { generateTimestamp, staticDir } from "../utils/utils.ts";
+import { generateTimestamp, pagesDir, staticDir } from "../utils/utils.ts";
 import { MongoClientWrapper } from "../utils/mongoClientWrapper.ts";
 
-export const getMainPage = async (ctx: RouterContext) => {
-    try {
-        await ctx.send({
-            root: staticDir,
-            index: 'index.html'
-        });
-    } catch (error) {
-        console.log(`Error!: ${error}`);
-    }
-
+// deno-lint-ignore no-explicit-any
+export const getMainPage = async (ctx: any) => {
+    await ctx.render(`${pagesDir}/index.ejs`);
     if (MongoClientWrapper.isConnected) {
         // todo await vs void
         void MongoClientWrapper.printUsers();
@@ -21,8 +14,9 @@ export const getMainPage = async (ctx: RouterContext) => {
     }
 };
 
-export const getVisitorsBook = (ctx: RouterContext) => {
-    ctx.response.body = "Visitors Book";
+// deno-lint-ignore no-explicit-any
+export const getVisitorsBook = async (ctx: any) => {
+    await ctx.render(`${pagesDir}/visitors_book.ejs`)
 };
 
 export const postVisitorEntry = (ctx: RouterContext) => {
