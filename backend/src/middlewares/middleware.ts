@@ -6,7 +6,6 @@ export const errorHandler = async (ctx: Context, next: () => any) => {
     try {
         await next();
     } catch (error) {
-        console.log('error catched')
         if (error instanceof HttpError) {
             switch (error.status) {
                 case Status.NotFound:

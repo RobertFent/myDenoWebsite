@@ -1,7 +1,8 @@
-import { Application, bold, yellow } from "../deps.ts";
+import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, send } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger } from "./middlewares/middleware.ts";
+import { staticDir } from "./utils/utils.ts";
 
 // server config
 const port = 8080;
@@ -18,14 +19,28 @@ const setupApp = (): Application<Record<string, any>> => {
     app.use(errorHandler);
     app.use(requestLogger);
     app.use(cookieUser);
-    
+
     // init routes and its methods
     app.use(router.routes());
     // todo get 405, 501 instead of 404
     app.use(router.allowedMethods());
 
+    const denjuckEngine = engineFactory.getDenjuckEngine();
+    const oakAdapter = adapterFactory.getOakAdapter();
+
+    // Allowing Static file to fetch from server
+    app.use(async (ctx, next) => {
+        await send(ctx, ctx.request.url.pathname, {
+            root: staticDir
+        })
+        next()
+    });
+
+    // Passing view-engine as middleware
+    app.use(viewEngine(oakAdapter, denjuckEngine));
+
     // used when no route matches
-    app.use(notFound);
+    // app.use(notFound);
 
     // setup listener
     app.addEventListener("listen", (event) => {

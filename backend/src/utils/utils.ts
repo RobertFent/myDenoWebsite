@@ -14,3 +14,5 @@ export const generateTimestamp = (): string => {
     const date = (new Date(Date.now() + offsetInMs)).toISOString().replace(/T/, ' ').replace(/\..+/, '');
     return date;
 };
+
+export const staticDir = `${Deno.cwd()}/../frontend/static`
