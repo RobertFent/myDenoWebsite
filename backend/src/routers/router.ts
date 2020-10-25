@@ -1,5 +1,5 @@
 import { Router } from "../../deps.ts";
-import { getMainPage, getVisitorsBook, postVisitorEntry } from "./controller.ts";
+import { getMainPage, getVisitorsBook, postVisitorEntry } from "../controllers/controller.ts";
 
 const router = new Router();
 

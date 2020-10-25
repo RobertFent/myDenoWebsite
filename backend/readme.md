@@ -1,7 +1,9 @@
 ### todo
+- add proper http errors instead of 404
 - add linting rules
-- maybe use import map when this feature is stable
 - path resolution in bash scripts (for now run them from backend folder)
+- use own mongo client to prevent using permissions
+- maybe use import map when this feature is stable
 
 ### scripts
 - launch website for dev: ../scripts/launch_website.sh -w -f

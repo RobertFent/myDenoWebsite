@@ -6,6 +6,8 @@ export class MongoClientWrapper {
     private static db: Database;
     private static users: Collection<User>;
 
+    public static isConnected = false;
+
     // set constructor to private to prevent extending this class
     private constructor () {}
 
@@ -14,6 +16,7 @@ export class MongoClientWrapper {
         this.mClient.connectWithUri(uri);
         this.db = this.mClient.database(dbName);
         this.users = this.db.collection<User>("users");
+        this.isConnected = true;
     }
 
     public static async insertUser (ip: string, date: string) {
