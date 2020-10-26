@@ -1,3 +1,17 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
 .intro {
     text-align: center;
     padding-top: 1%;
@@ -19,6 +33,25 @@
 }
 
 .about h6 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+.about .website-description {
+    text-align: center;
+}
+
+.about .profile {
+    text-align: center;
+}
+
+.form_card {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.visitor_book_head h5{
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 1%;

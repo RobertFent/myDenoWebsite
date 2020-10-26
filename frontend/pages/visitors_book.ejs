@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <%- include("../partials/head.ejs") %>
-  </head>
-  <body>
-    <header>
-        <%- include("../partials/header.ejs") %>
-    </header>
-    <div class="container">
-        <h1>Visitors Book</h1>
+
+<head>
+  <%- include("../partials/head.ejs") %>
+</head>
+
+<body>
+  <header>
+    <%- include("../partials/header.ejs") %>
+  </header>
+  <div class="intro deep-orange accent-2 z-depth-1">
+    <h1 class="grey-text text-lighten-3">Visitors Book</h1>
+  </div>
+  
+  <div class="container visitor_book_head">
+    <h5>Please leave me a message :-)</h5>
+      <hr>
+  </div>
+  <!--card-->
+  <div class="card deep-orange accent-2 z-depth-1 form_card">
+    <div class="card-content white-text">
+      <span class="card-title">Contact Me:</span>
+      <!--form field-->
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="visitor_name" type="text" class="validate">
+            <label for="visitor_name">Your Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="visitor_message" type="text" class="validate">
+            <label for="visitor_message">Your Message</label>
+          </div>
+        </div>
+      </form>
     </div>
-  </body>
+  </div>
+
+</body>
+
 </html>

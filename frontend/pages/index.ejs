@@ -5,33 +5,68 @@
     <%- include("../partials/head.ejs") %>
 </head>
 
+<!--class="grey darken-4"-->
+
 <body>
-    <header>
-        <%- include("../partials/header.ejs") %>
-    </header>
-    <div class="intro deep-orange accent-2 z-depth-1">
-        <h1 class="grey-text text-lighten-3">Robert Fent</h1>
-        <h5 class="grey lighten-3 grey-text text-darken-4">web developer and computer science student</h5>
-      </div>
-    <div class="container about">
-        <h5>about me and this website</h5>
-        <hr>
-        <div class="row">
-            <div class="col s12 m4 l4">
-                <h6>how this website was build</h6>
-            </div>
-            <div class="col s12 m4 l4">
-                <h6>profile</h6>
-            </div>
-            <div class="col s12 m4 l4">
-                <h6>my story</h6>
+    <main>
+        <header>
+            <%- include("../partials/header.ejs") %>
+        </header>
+        <div class="intro deep-orange accent-2 z-depth-1">
+            <h1 class="grey-text text-lighten-3">Robert Fent</h1>
+            <h5 class="grey lighten-3 grey-text text-darken-4">web developer and computer science student</h5>
+        </div>
+        <div class="container about">
+            <h5>about this website and me</h5>
+            <hr>
+            <div class="row">
+                <div class="col s12 m4 l4">
+                    <h6>Hello from Deno!</h6>
+                    <div class="website-description">
+                        <img src="./assets/deno_logo.svg" width="150" />
+                        <p>This is a text describing the backend built with deno.</p>
+                        <p>The frontend will also be mentioned a little</p>
+                    </div>
+                </div>
+                <div class="col s12 m4 l4">
+                    <h6>profile</h6>
+                    <div class="profile card deep-orange accent-2 z-depth-1">
+                        <div class="card-content white-text">
+                            <img src="./assets/me.png" width="100">
+                            <table class="responsive-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Robert</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Age</td>
+                                        <td>22</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employment</td>
+                                        <td>Student/Software Engineer</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Check out my Github</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 l4">
+                    <h6>my story</h6>
+                    <div class="story">
+                        <p>This is a text describing me and telling my story</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <h3>Hello from Deno!</h3>
-        <img src="./assets/deno_logo.svg" width="150" />
-    </div>
+    </main>
+    <footer>
+        <%- include("../partials/footer.ejs") %>
+    </footer>
 </body>
 
 </html>
