@@ -2,9 +2,10 @@ import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, s
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
+import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB } from "./utils/constants.ts";
 
 // server config
-const port = 8080;
+const port = SERVER_PORT;
 const hostname = "127.0.0.1";
 
 // deno-lint-ignore no-explicit-any
@@ -25,7 +26,10 @@ const setupApp = (): Application<Record<string, any>> => {
     app.use(router.routes());
     // todo get 405, 501 instead of 404
     app.use(router.allowedMethods());
+
+    // needs to be set after routing to not fuck up other routes than root
     app.use(staticFileHandler);
+
     // todo getting images returns 404 if this middleware is active
     // used when no route matches
     // app.use(notFound);
@@ -46,19 +50,16 @@ const setupApp = (): Application<Record<string, any>> => {
 };
 
 const initMongo = async (): Promise<void> => {
-    MongoClientWrapper.initMongoClient(
-        "mongodb://admin:admin@localhost:27017",
-        "test",
-    );
-    await MongoClientWrapper.insertUser("1", "1");
-    await MongoClientWrapper.printUsers();
+    void MongoClientWrapper.initMongoClient(CONNECTION_STRING, DEFAULT_DB);
+    // await MongoClientWrapper.printUsers();
 };
 
 const run = async (): Promise<void> => {
     try {
         // init stuff
         const app = setupApp();
-        // await initMongo();
+        // todo await doesn't seem to work
+        await initMongo();
 
         // launch server
         await app.listen({ hostname: hostname, port: port });

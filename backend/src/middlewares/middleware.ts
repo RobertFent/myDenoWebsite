@@ -1,7 +1,14 @@
+// deno-lint-ignore-file no-explicit-any
 import { adapterFactory, Context, cyan, engineFactory, green, HttpError, send, Status, viewEngine } from "../../deps.ts";
-import { generateTimestamp, pagesDir, staticDir } from "../utils/utils.ts";
+import { generateTimestamp, staticDir } from "../utils/utils.ts";
 
-// deno-lint-ignore no-explicit-any
+/**
+ * catches error if thrown in later middleware functions
+ * to catch every possible error -> use this handler as first middleware
+ * @param ctx current server context
+ * @param next next middleware function in queue
+ * @module middleware
+ */
 export const errorHandler = async (ctx: Context, next: () => any): Promise<void> => {
     try {
         await next();
@@ -26,13 +33,28 @@ export const errorHandler = async (ctx: Context, next: () => any): Promise<void>
     }
 };
 
-// deno-lint-ignore no-explicit-any
+/**
+ * logs requests to server
+ * @param ctx current server context
+ * @param next next middleware function in queue
+ * @module middleware
+ */
 export const requestLogger = async (ctx: Context, next: () => any): Promise<void> => {
-    console.log(`${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)}`);
+    const path = ctx.request.url.pathname;
+    const regexUnwantedPaths = /\/(assets|js|favicon)\/.*/g;
+    // only prints paths without assets|js|favicon at the beginning
+    if (!path.match(regexUnwantedPaths)) {
+        console.log(`${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)}`);
+    }
     await next();
 };
 
-// deno-lint-ignore no-explicit-any
+/**
+ * sets timestamp in a cookie
+ * @param ctx current server context
+ * @param next next middleware function in queue
+ * @module middleware
+ */
 export const cookieUser = async (ctx: Context, next: () => any): Promise<void> => {
     const lastVisit = ctx.cookies.get('LastVisit');
     ctx.cookies.set('LastVisit', generateTimestamp())
@@ -40,8 +62,12 @@ export const cookieUser = async (ctx: Context, next: () => any): Promise<void> =
     await next();
 }
 
-// Allowing Static file to fetch from server
-// deno-lint-ignore no-explicit-any
+/**
+ * Allowing server to fetch static files
+ * @param ctx current server context
+ * @param next next middleware function in queue
+ * @module middleware
+ */
 export const staticFileHandler = async (ctx: Context, next: () => any): Promise<void> => {
     await send(ctx, ctx.request.url.pathname, {
         root: staticDir
@@ -49,14 +75,21 @@ export const staticFileHandler = async (ctx: Context, next: () => any): Promise<
     next();
 }
 
-// Passing view-engine as middleware
-// deno-lint-ignore no-explicit-any
+/**
+ * Passing view-engine as middleware
+ * @module middleware
+ */
 export const viewEngineSetter = (): any => {
     const ejsEngine = engineFactory.getEjsEngine();
     const oakAdapter = adapterFactory.getOakAdapter();
     return viewEngine(oakAdapter, ejsEngine);
 }
 
+/**
+ * function throws a 404 error
+ * @module middleware
+ * @throws {HttpError}
+ */
 export const notFound = (): HttpError => {
     const httpError = new HttpError();
     httpError.status = Status.NotFound;

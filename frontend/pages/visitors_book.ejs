@@ -22,20 +22,34 @@
     <div class="card-content white-text">
       <span class="card-title">Contact Me:</span>
       <!--form field-->
-      <form class="col s12">
+      <form action="/visitor_entry" method="POST" enctype="multipart/form-data" class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="visitor_name" type="text" class="validate">
+            <input id="visitor_name" type="text" name="name" class="validate">
             <label for="visitor_name">Your Name</label>
           </div>
           <div class="input-field col s6">
-            <input id="visitor_message" type="text" class="validate">
+            <input id="visitor_message" type="text" name="message" class="validate">
             <label for="visitor_message">Your Message</label>
+            <button type="submit" value="Submit"></button>
           </div>
         </div>
       </form>
     </div>
   </div>
+  <!-- shown entries -->
+  <div class="container">
+    <h3>My visitors book</h3>
+    <ul class="entries">
+        <% for(let i = 0; i < entries.length; i++) {%>
+        <li class="entry">
+            <span><%= entries[i].timestamp %></span>
+            <span><%= entries[i].name %></span>
+            <span><%= entries[i].message %></span>
+        </li>
+        <% } %>
+    </ul>
+</div>
 
 </body>
 
