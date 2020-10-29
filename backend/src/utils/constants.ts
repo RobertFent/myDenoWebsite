@@ -11,5 +11,6 @@ export const PageInformation = {
 };
 
 export const SERVER_PORT = 8080;
+export const HOST_NAME = '127.0.0.1';
 export const CONNECTION_STRING = 'mongodb://admin:admin@localhost:27017';
 export const DEFAULT_DB = 'test';

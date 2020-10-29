@@ -1,12 +1,16 @@
-import { Application, bold, yellow, viewEngine, engineFactory, adapterFactory, send, red } from "../deps.ts";
+import { Application, bold, yellow, red } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
-import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB } from "./utils/constants.ts";
+import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME } from "./utils/constants.ts";
+import { dotenv } from './utils/dotenv.parser.ts';
 
 // server config
-const port = SERVER_PORT;
-const hostname = "127.0.0.1";
+const env = dotenv();
+const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
+const hostname = env.HOST_NAME || HOST_NAME;
+const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
+const database = env.DATABASE || DEFAULT_DB;
 
 // deno-lint-ignore no-explicit-any
 const setupApp = (): Application<Record<string, any>> => {
@@ -50,7 +54,7 @@ const setupApp = (): Application<Record<string, any>> => {
 };
 
 const initMongo = async (): Promise<void> => {
-    void MongoClientWrapper.initMongoClient(CONNECTION_STRING, DEFAULT_DB);
+    void MongoClientWrapper.initMongoClient(connectionString, database);
     // await MongoClientWrapper.printUsers();
 };
 
