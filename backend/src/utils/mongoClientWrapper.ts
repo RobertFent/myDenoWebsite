@@ -14,6 +14,7 @@ export class MongoClientWrapper {
     // set constructor to private to prevent extending this class
     private constructor() { }
 
+    // todo interval takes 30sec if no connection can be made
     private static async tryConnectUntilSuccess(uri: string): Promise<void> {
         Logger.debug(import.meta.url, 'Trying to connect until success');
         await new Promise((res, rej) => {
@@ -21,15 +22,15 @@ export class MongoClientWrapper {
                 Logger.debug(import.meta.url, 'Currently in connection interval');
                 this.mClient.connectWithUri(uri);
                 // if client gets dbs, its probably connected
-                if (await this.mClient.listDatabases()) {
+                void this.mClient.listDatabases().then(() => {
                     Logger.info(import.meta.url, 'Db connection established');
                     this.isConnected = true;
                     // todo? clearInterval + res or only res?
                     clearInterval(connectionInterval);
                     res();
-                } else {
-                    Logger.error(import.meta.url, 'No connection to db could be made! Retrying in 5s');
-                }
+                }).catch((err) => {
+                    Logger.error(import.meta.url, `No connection to db could be made: ${err}`)
+                });
                 // 5 sec interval
             }, 5000);
         });
@@ -39,7 +40,6 @@ export class MongoClientWrapper {
         this.mClient = new MongoClient();
         await this.tryConnectUntilSuccess(uri);
         // code below here will only be called if connection could be made successfully
-        Logger.info(import.meta.url, 'selecting db');
         this.db = this.mClient.database(dbName);
         this.users = this.db.collection<User>("users");
         this.visitorEntries = this.db.collection<VisitorEntry>("visitorEntries");
