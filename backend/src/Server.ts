@@ -1,9 +1,10 @@
-import { Application, bold, yellow, red } from "../deps.ts";
+import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
 import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
+import { Logger } from "./utils/logger.ts";
 
 // server config
 const env = dotenv();
@@ -40,14 +41,11 @@ const setupApp = (): Application<Record<string, any>> => {
 
     // setup listeners
     app.addEventListener("listen", (event) => {
-        console.log(
-            bold('Start listening on ') +
-            yellow(`http://${event.hostname}:${event.port}`),
-        );
+        Logger.info(import.meta.url, `Server listening on http://localhost:${port}`);
     });
 
     app.addEventListener('error', (event) => {
-        console.log(bold('Error: ') + red(event.message))
+        Logger.error(import.meta.url, event.message);
     });
 
     return app;
@@ -63,12 +61,12 @@ const run = async (): Promise<void> => {
         // init stuff
         const app = setupApp();
         // todo await doesn't seem to work
-        await initMongo();
+        void initMongo();
 
         // launch server
         await app.listen({ hostname: hostname, port: port });
     } catch (error) {
-        console.log(error);
+        Logger.error(import.meta.url, error);
     }
 };
 

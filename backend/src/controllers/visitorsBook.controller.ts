@@ -3,6 +3,7 @@ import { MongoClientWrapper } from "../utils/mongoClientWrapper.ts"
 import { generateTimestamp, pagesDir } from "../utils/utils.ts";
 import { RouterContext } from "../../deps.ts";
 import { PageInformation } from "../utils/constants.ts";
+import { Logger } from "../utils/logger.ts";
 
 const parseVisitorEntry = async (ctx: RouterContext): Promise<VisitorEntry> => {
     const formData = (await (ctx.request.body({type: 'form-data'}).value.read())).fields
@@ -19,7 +20,7 @@ export const getVisitorsBook = async (ctx: any) => {
     if (MongoClientWrapper.isConnected) {
         existingEntries = await MongoClientWrapper.getVisitorEntries();
     } else {
-        console.log('No connection to db! Entries could not be loaded');
+        Logger.debug(import.meta.url, 'No connection to db! Entries could not be loaded');
     }
     await ctx.render(`${pagesDir}/${PageInformation.VisitorsBook.HtmlFile}`, {entries: existingEntries});
 }
@@ -30,7 +31,7 @@ export const postVisitorEntry = async (ctx: RouterContext) => {
     if (MongoClientWrapper.isConnected) {
         await MongoClientWrapper.insertVisitorEntry(entry);
     } else {
-        console.log('No connection to db! Entry could not be added')
+        Logger.debug(import.meta.url, 'No connection to db! Entry could not be added');
     }
     // reload site with new entry
     await getVisitorsBook(ctx);

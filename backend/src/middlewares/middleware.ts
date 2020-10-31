@@ -1,5 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
-import { adapterFactory, Context, cyan, engineFactory, green, HttpError, send, Status, viewEngine } from "../../deps.ts";
+import { adapterFactory, Context, engineFactory, HttpError, send, Status, viewEngine } from "../../deps.ts";
+import { Logger } from "../utils/logger.ts";
 import { generateTimestamp, staticDir } from "../utils/utils.ts";
 
 /**
@@ -16,11 +17,11 @@ export const errorHandler = async (ctx: Context, next: () => any): Promise<void>
         if (error instanceof HttpError) {
             switch (error.status) {
                 case Status.NotFound:
-                    console.log(`Route not implemented: ${ctx.request.url}`);
+                    Logger.error(import.meta.url, `Route not implemented: ${ctx.request.url}`);
                     ctx.response.body = "404 - Not Found";
                     break;
                 default:
-                    console.log(`Http error: ${error.message}`);
+                    Logger.error(import.meta.url, `Http error: ${error.message}`);
                     ctx.response.body = error.message;
                     break;
             }
@@ -28,7 +29,7 @@ export const errorHandler = async (ctx: Context, next: () => any): Promise<void>
         } else {
             ctx.response.body = "Internal Server Error";
             ctx.response.status = Status.InternalServerError;
-            console.log(`Server error: ${error}`);
+            Logger.error(import.meta.url, `Server error: ${error}`);
         }
     }
 };
@@ -44,7 +45,7 @@ export const requestLogger = async (ctx: Context, next: () => any): Promise<void
     const regexUnwantedPaths = /\/(assets|js|favicon)\/.*/g;
     // only prints paths without assets|js|favicon at the beginning
     if (!path.match(regexUnwantedPaths)) {
-        console.log(`${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)}`);
+        Logger.debug(import.meta.url, `${ctx.request.method} - ${ctx.request.url.pathname}`);
     }
     await next();
 };
@@ -58,7 +59,7 @@ export const requestLogger = async (ctx: Context, next: () => any): Promise<void
 export const cookieUser = async (ctx: Context, next: () => any): Promise<void> => {
     const lastVisit = ctx.cookies.get('LastVisit');
     ctx.cookies.set('LastVisit', generateTimestamp())
-    if (!lastVisit) console.log(`New user: ${ctx.request.ip}`);
+    if (!lastVisit) Logger.info(import.meta.url, `New user: ${ctx.request.ip}`);
     await next();
 }
 

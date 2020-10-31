@@ -1,6 +1,7 @@
 import { generateTimestamp, getCurrentDay, getDayFromCustomTimestamp, pagesDir } from "../utils/utils.ts";
 import { MongoClientWrapper } from "../utils/mongoClientWrapper.ts";
 import { PageInformation } from "../utils/constants.ts";
+import { Logger } from "../utils/logger.ts";
 
 /**
  * visitation counts as new if last visit was not today
@@ -27,6 +28,6 @@ export const getMainPage = async (ctx: any) => {
             void MongoClientWrapper.insertVisitor(ctx.request.ip, generateTimestamp());
         }
     } else {
-        console.log('No connection to db!');
+        Logger.debug(import.meta.url, 'No connection to db!');
     }
 };
