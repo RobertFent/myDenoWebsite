@@ -1,5 +1,4 @@
-#! /bin/sh
-
+#!/usr/bin/env bash
 # parse args
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -26,6 +25,7 @@ fi
 DENO_ARGS="-c ./tsconfig.json --unstable"
 
 # check if script is in backend folder
+echo "Running script from $PWD"
 REGEX=".*\/backend"
 if [[ "$PWD" =~ $REGEX ]]; then
     if [ "$DEPS" == "1" ]; then

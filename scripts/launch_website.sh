@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
 # parse args
 while [[ "$#" -gt 0 ]]; do
@@ -36,6 +36,7 @@ fi
 # echo "$DENO_ARGS"
 
 # check if script is in backend folder
+echo "Running script from $PWD"
 REGEX=".*\/backend"
 if [[ "$PWD" =~ $REGEX ]]; then
     deno run $DENO_ARGS src/Server.ts
