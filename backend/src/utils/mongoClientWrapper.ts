@@ -17,8 +17,8 @@ export class MongoClientWrapper {
     // todo interval takes 30sec if no connection can be made
     private static async tryConnectUntilSuccess(uri: string): Promise<void> {
         Logger.debug(import.meta.url, 'Trying to connect until success');
-        await new Promise((res, rej) => {
-            const connectionInterval = setInterval(async () => {
+        await new Promise<void>((res, rej) => {
+            const connectionInterval = setInterval(() => {
                 Logger.debug(import.meta.url, 'Currently in connection interval');
                 this.mClient.connectWithUri(uri);
                 // if client gets dbs, its probably connected
@@ -63,6 +63,6 @@ export class MongoClientWrapper {
     }
 
     public static async getVisitorEntries(): Promise<VisitorEntry[]> {
-        return this.visitorEntries.find();
+        return await this.visitorEntries.find();
     }
 }

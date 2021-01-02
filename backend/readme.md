@@ -1,6 +1,6 @@
 ### todo
 - add proper http errors instead of 404
-- custom logger like winston
+- connection between website and mongo in docker
 - add linting rules
 - path resolution in bash scripts (for now run them from backend folder)
 - use own mongo client to prevent using permissions

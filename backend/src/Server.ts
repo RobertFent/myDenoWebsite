@@ -51,7 +51,7 @@ const setupApp = (): Application<Record<string, any>> => {
     return app;
 };
 
-const initMongo = async (): Promise<void> => {
+const initMongo = (): void => {
     void MongoClientWrapper.initMongoClient(connectionString, database);
     // await MongoClientWrapper.printUsers();
 };
@@ -60,8 +60,8 @@ const run = async (): Promise<void> => {
     try {
         // init stuff
         const app = setupApp();
-        // todo await doesn't seem to work
-        void initMongo();
+        // todo server not working if mongo has no connection
+        // initMongo();
 
         // launch server
         await app.listen({ hostname: hostname, port: port });
