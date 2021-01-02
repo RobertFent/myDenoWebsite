@@ -2,55 +2,69 @@
 <html>
 
 <head>
-  <%- include("../partials/head.ejs") %>
+    <%- include("../partials/head.ejs") %>
 </head>
 
 <body>
-  <header>
-    <%- include("../partials/header.ejs") %>
-  </header>
-  <div class="intro deep-orange accent-2 z-depth-1">
-    <h1 class="grey-text text-lighten-3">Visitors Book</h1>
-  </div>
-  
-  <div class="container visitor_book_head">
-    <h5>Please leave me a message :-)</h5>
-      <hr>
-  </div>
-  <!--card-->
-  <div class="card deep-orange accent-2 z-depth-1 form_card">
-    <div class="card-content white-text">
-      <span class="card-title">Contact Me:</span>
-      <!--form field-->
-      <form action="/visitor_entry" method="POST" enctype="multipart/form-data" class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="visitor_name" type="text" name="name" class="validate">
-            <label for="visitor_name">Your Name</label>
-          </div>
-          <div class="input-field col s6">
-            <input id="visitor_message" type="text" name="message" class="validate">
-            <label for="visitor_message">Your Message</label>
-            <button type="submit" value="Submit"></button>
-          </div>
+    <header>
+        <%- include("../partials/header.ejs") %>
+    </header>
+    <main>
+        <div class="intro deep-orange accent-2 z-depth-1">
+            <h1 class="grey-text text-lighten-3">Visitors Book</h1>
         </div>
-      </form>
-    </div>
-  </div>
-  <!-- shown entries -->
-  <div class="container">
-    <h3>My visitors book</h3>
-    <ul class="entries">
-        <% for(let i = 0; i < entries.length; i++) {%>
-        <li class="entry">
-            <span><%= entries[i].timestamp %></span>
-            <span><%= entries[i].name %></span>
-            <span><%= entries[i].message %></span>
-        </li>
-        <% } %>
-    </ul>
-</div>
 
+        <div class="container visitor_book_head">
+            <h5>Please leave me a message :-)</h5>
+            <hr>
+        </div>
+        <!--card-->
+        <div class="card deep-orange accent-2 z-depth-1 form_card">
+            <div class="card-content white-text">
+                <span class="card-title">Contact Me:</span>
+                <!--form field-->
+                <form action="/visitor_entry" method="POST" enctype="multipart/form-data" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="visitor_name" type="text" name="name" class="validate">
+                            <label for="visitor_name">Your Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">mode_comment</i>
+                            <input id="visitor_message" type="text" name="message" class="validate">
+                            <label for="visitor_message">Your Message</label>
+                        </div>
+                        <button class="btn waves-effect waves-light white deep-orange-text" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                          </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- shown entries -->
+        <div class="container">
+            <h3>My visitors book</h3>
+            <ul class="entries">
+                <% for(let i=0; i < entries.length; i++) {%>
+                    <li class="entry">
+                        <span>
+                            <%= entries[i].timestamp %>
+                        </span>
+                        <span>
+                            <%= entries[i].name %>
+                        </span>
+                        <span>
+                            <%= entries[i].message %>
+                        </span>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <%- include("../partials/footer.ejs") %>
+    </footer>
 </body>
 
 </html>
