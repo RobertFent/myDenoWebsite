@@ -61,7 +61,7 @@ const run = async (): Promise<void> => {
         // init stuff
         const app = setupApp();
         // todo server not working if mongo has no connection
-        // initMongo();
+        initMongo();
 
         // launch server
         await app.listen({ hostname: hostname, port: port });

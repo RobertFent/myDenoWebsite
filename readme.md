@@ -15,3 +15,9 @@
                 - reload cached external deps
 - launch for dev: ../scripts/launch_website.sh -w -f
 - setup ide: ../scripts/cache -r -t
+
+### setting up website
+- launch mongo in docker
+```docker-compose up```
+- launch website from backend folder
+```../scripts/launch_website.sh -f```
