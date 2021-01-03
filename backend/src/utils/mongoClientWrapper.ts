@@ -19,7 +19,7 @@ export class MongoClientWrapper {
         Logger.debug(import.meta.url, 'Trying to connect until success');
         await new Promise<void>((res, rej) => {
             const connectionInterval = setInterval(() => {
-                Logger.debug(import.meta.url, 'Currently in connection interval');
+                Logger.debug(import.meta.url, `Currently in connection interval; URI: ${uri}`);
                 this.mClient.connectWithUri(uri);
                 // if client gets dbs, its probably connected
                 void this.mClient.listDatabases().then(() => {

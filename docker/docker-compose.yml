@@ -14,6 +14,13 @@ services:
       - mongoconfig:/data/configdb
     networks:
       - mongo_net
+  mydenowebsite:
+    image: deno-website
+    container_name: my-deno-website
+    ports:
+        - 8080:8080
+    networks:
+      -  mongo_net
 
 volumes:
   mongodb:

@@ -1,0 +1,27 @@
+FROM frolvlad/alpine-glibc:alpine-3.11_glibc-2.31
+
+# setup needed stuff
+RUN apk update && apk add curl
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh && mv /root/.deno/bin/deno /bin/deno
+
+# The port that your application listens to.
+EXPOSE 8080
+
+WORKDIR /app
+
+# Cache the dependencies as a layer (the following steps are re-run only when deps.ts is modified).
+# Ideally cache deps.ts will download and compile _all_ external files
+COPY backend/deps.ts backend/
+COPY backend/lock.json backend/
+COPY backend/tsconfig.json backend/
+COPY scripts/cache_docker.sh scripts/
+RUN cd backend && ../scripts/cache_docker.sh -r
+
+# These steps will be re-run upon each file change in your working directory:
+ADD . .
+
+# Compile the main app so that it doesn't need to be compiled each startup/entry.
+RUN cd backend && ../scripts/cache_docker.sh -t
+
+# launch website just with lock file confirmation
+CMD ["scripts/launch_website_docker.sh", "-f"]
