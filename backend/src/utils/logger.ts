@@ -3,10 +3,10 @@ import { generateTimestamp } from "./utils.ts";
 
 type DebugLevel = 'Error' | 'Debug' | 'Info';
 
-const writeToFile = async (line: string): Promise<void> => {
+// appends given line to log.txt file
+const writeToFile = (line: string): void => {
     try {
-        await Deno.writeTextFile('../../log.txt', line);
-        console.log(line)
+        Deno.writeTextFileSync('./log.txt', `${line}\n`, { append: true });
     } catch (error) {
         console.log(error)
     }
@@ -17,13 +17,11 @@ export class Logger {
     // set constructor to private to prevent extending this class
     private constructor () {}
 
-    // todo better type?
     private static log (level: DebugLevel, colorFct: (str: string) => string, serviceName: string, message: string) {
         const timestamp = generateTimestamp();
-        const logLine = `${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`;
-        // do not await write to file
-        console.log('writing into log file')
-        void writeToFile(logLine);
+        const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
+        console.log(`${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`);
+        writeToFile(fileLine);
     }
 
     public static info (serviceName: string, message: string) {

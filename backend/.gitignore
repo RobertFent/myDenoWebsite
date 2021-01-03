@@ -4,3 +4,6 @@ config/*
 
 # ignore deno plugins; they will be installed when reloading cached deps
 .deno_plugins
+
+# ignore log file
+log.txt
