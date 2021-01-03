@@ -19,5 +19,6 @@
 ### setting up website
 - launch mongo in docker
 ```docker-compose up```
-- launch website from backend folder
+- cache deps and launch website from backend folder
+```../scripts/cache.sh -r -d```
 ```../scripts/launch_website.sh -f```

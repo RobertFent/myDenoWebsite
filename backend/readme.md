@@ -3,7 +3,7 @@
 - connection between website and mongo in docker
 - add linting rules
 - path resolution in bash scripts (for now run them from backend folder)
-- use own mongo client to prevent using permissions
+- use own mongo client to prevent using permissions (maybe)
 - maybe use import map when this feature is stable
 
 ### scripts
