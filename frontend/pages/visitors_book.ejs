@@ -35,31 +35,41 @@
                             <input id="visitor_message" type="text" name="message" class="validate">
                             <label for="visitor_message">Your Message</label>
                         </div>
-                        <button class="btn waves-effect waves-light white deep-orange-text" type="submit" name="action">Submit
+                        <button class="btn waves-effect waves-light white deep-orange-text" type="submit"
+                            name="action">Submit
                             <i class="material-icons right">send</i>
-                          </button>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
         <!-- shown entries -->
-        <div class="container">
+        <div class="container visitor-table">
             <h3>My visitors book</h3>
-            <ul class="entries">
-                <% for(let i=0; i < entries.length; i++) {%>
-                    <li class="entry">
-                        <span>
-                            <%= entries[i].timestamp %>
-                        </span>
-                        <span>
-                            <%= entries[i].name %>
-                        </span>
-                        <span>
-                            <%= entries[i].message %>
-                        </span>
-                    </li>
-                    <% } %>
-            </ul>
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Name</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i=0; i < entries.length; i++) {%>
+                        <tr>
+                            <td>
+                                <%= entries[i].timestamp %>
+                            </td>
+                            <td>
+                                <%= entries[i].name %>
+                            </td>
+                            <td>
+                                <%= entries[i].message %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>

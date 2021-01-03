@@ -67,3 +67,21 @@ main {
     text-align: center;
     margin-bottom: 1%;
 }
+
+.visitor-table tbody{
+    display: block;
+    height: 30vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.visitor-table thead, .visitor-table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.visitor-table thead {
+    width: calc( 100% - 1em )
+}
+.visitor-table table {
+    width:100%;
+}
