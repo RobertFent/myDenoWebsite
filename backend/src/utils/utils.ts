@@ -41,5 +41,5 @@ export const getDayFromCustomTimestamp = (timestamp: string): number => {
     return Number(day);
 }
 
-export const staticDir = `${Deno.cwd()}/../frontend/static`
-export const pagesDir = `${Deno.cwd()}/../frontend/pages`
+export const staticDir = `${Deno.cwd()}/frontend/static`
+export const pagesDir = `${Deno.cwd()}/frontend/pages`

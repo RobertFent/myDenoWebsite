@@ -8,7 +8,7 @@ const writeToFile = (line: string): void => {
     try {
         Deno.writeTextFileSync('./log.txt', `${line}\n`, { append: true });
     } catch (error) {
-        console.log(error)
+        console.log(`RIP: ${error}`)
     }
 }
 
