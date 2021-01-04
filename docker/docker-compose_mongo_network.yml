@@ -12,7 +12,8 @@ services:
     volumes:
       - mongodb:/data/db
       - mongoconfig:/data/configdb
-    network_mode: "host"
+    networks:
+      - mongo_net
   mydenowebsite:
     image: deno-website
     container_name: my-deno-website
@@ -20,8 +21,13 @@ services:
       - 8080:8080
     volumes:
       - ./logs/:/myDenoWebsite/logs
-    network_mode: "host"
+    networks:
+      -  mongo_net
 
 volumes:
   mongodb:
   mongoconfig:
+
+networks:
+  mongo_net:
+    driver: bridge
