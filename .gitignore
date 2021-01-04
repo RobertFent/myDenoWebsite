@@ -4,4 +4,7 @@
 # ignore logs
 logs/*
 
+# ignore logs in docker
+docker/logs
+
 .env
