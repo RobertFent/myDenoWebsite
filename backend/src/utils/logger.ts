@@ -1,4 +1,4 @@
-import { basename, bold, cyan, green, red } from '../../deps.ts';
+import { basename, bold, cyan, green, red, format } from '../../deps.ts';
 import { generateTimestamp } from "./utils.ts";
 
 type DebugLevel = 'Error' | 'Debug' | 'Info';
@@ -6,7 +6,8 @@ type DebugLevel = 'Error' | 'Debug' | 'Info';
 // appends given line to log.txt file
 const writeToFile = (line: string): void => {
     try {
-        Deno.writeTextFileSync('./log.txt', `${line}\n`, { append: true });
+        const currentDay = format(new Date(), 'dd-MM-yyyy');
+        Deno.writeTextFileSync(`./logs/log_${currentDay}.txt`, `${line}\n`, { append: true });
     } catch (error) {
         console.log(`RIP: ${error}`)
     }

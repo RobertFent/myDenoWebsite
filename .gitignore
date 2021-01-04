@@ -2,4 +2,4 @@
 .deno_plugins
 
 # ignore logs
-log.txt
+logs/*

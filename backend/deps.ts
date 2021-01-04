@@ -5,3 +5,4 @@ export { Collection, Database, MongoClient } from "https://deno.land/x/mongo@v0.
 export { bold, cyan, green, yellow, red } from "https://deno.land/std@0.73.0/fmt/colors.ts";
 export { viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/view_engine@v1.4.5/mod.ts";
 export { basename } from 'https://deno.land/std@0.75.0/path/mod.ts';
+export { format } from "https://deno.land/std@0.83.0/datetime/mod.ts";
