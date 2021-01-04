@@ -1,0 +1,4 @@
+2021-01-04 08:18:01 -- Debug -- mongoClientWrapper.ts -- Trying to connect until success
+2021-01-04 08:18:01 -- Info -- Server.ts -- Server listening on http://localhost:8080
+2021-01-04 08:18:06 -- Debug -- mongoClientWrapper.ts -- Currently in connection interval; URI: mongodb://admin:admin@my-mongodb:27017
+2021-01-04 08:18:06 -- Info -- mongoClientWrapper.ts -- Db connection established
