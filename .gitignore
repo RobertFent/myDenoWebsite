@@ -1,5 +1,5 @@
 # ignore plugins
-.deno_plugins
+# .deno_plugins
 
 # ignore logs
 logs/*

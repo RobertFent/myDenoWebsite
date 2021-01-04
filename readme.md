@@ -30,3 +30,12 @@ mongodb://admin:admin@my-mongodb:27017
 mongodb://admin:admin@localhost:27017
 ```
 - current docker-compose file in root is for using website without deno server in docker
+### connect to mongodb with deno not as container:
+- get ip of wsl
+```
+ip addr show eth0 | grep 'inet\b' | awk '{print $2}' | cut -d/ -f1
+```
+- use ip in connection string
+```
+mongodb://admin:admin@{ip}:27017
+```

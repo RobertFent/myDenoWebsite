@@ -18,7 +18,7 @@ services:
     image: deno-website
     container_name: my-deno-website
     ports:
-        - 8080:8080
+      - 8080:8080
     volumes:
       - ./logs/:/myDenoWebsite/logs
     networks:
