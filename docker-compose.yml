@@ -12,13 +12,8 @@ services:
     volumes:
       - mongodb:/data/db
       - mongoconfig:/data/configdb
-    networks:
-      - mongo_net
+    network_mode: "host"
 
 volumes:
   mongodb:
   mongoconfig:
-
-networks:
-  mongo_net:
-    driver: bridge
