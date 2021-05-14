@@ -12,7 +12,7 @@ services:
     volumes:
       - mongodb:/data/db
       - mongoconfig:/data/configdb
-    network_mode: "host"
+    # network_mode: "host"
 
 volumes:
   mongodb:
