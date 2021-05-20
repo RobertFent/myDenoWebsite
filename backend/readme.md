@@ -1,4 +1,5 @@
 ### todo
+- website currently only running when mongo is connected
 - add proper http errors instead of 404
 - add linting rules
 - path resolution in bash scripts (for now run them from backend folder)
