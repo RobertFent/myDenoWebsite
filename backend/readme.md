@@ -8,7 +8,7 @@
 
 ### scripts
 - launch website for dev: ../scripts/launch_website.sh -w -f
-- setup ide: ../scripts/cache -t -r
+- setup ide: ../scripts/cache -r -t
 
 ### useful built in deno tools:
 - deno help | upgrade

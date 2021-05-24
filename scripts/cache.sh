@@ -24,13 +24,13 @@ fi
 
 DENO_ARGS="-c backend/tsconfig.json --unstable"
 
-# check if script is in backend folder
+# check if script is in root folder
 echo "Running script from $PWD"
-REGEX=".*\/myDenoWebsite"
+REGEX=".*\/(myDenoWebsite|app)"
 if [[ "$PWD" =~ $REGEX ]]; then
     if [ "$DEPS" == "1" ]; then
         deno cache $DENO_ARGS --lock=backend/lock.json --lock-write backend/deps.ts
-        echo "Wrote external deps into ${PWD}/backend/deps.ts"
+        echo "Wrote deps from ${PWD}/backend/deps.ts into ${PWD}/backend/lock.json "
     fi
     if [ "$TYPES" == "1" ]; then
         deno cache $DENO_ARGS backend/src/Server.ts

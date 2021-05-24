@@ -35,7 +35,7 @@ if [ "$WATCH" == "1" ]; then
 fi
 # echo "$DENO_ARGS"
 
-# check if script is in backend folder
+# check if script is in root folder
 echo "Running script from $PWD"
 REGEX=".*\/myDenoWebsite"
 if [[ "$PWD" =~ $REGEX ]]; then
