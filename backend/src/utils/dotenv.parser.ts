@@ -1,3 +1,5 @@
+import { Logger } from "./logger.ts";
+
 /**
  * reads bytes from file and saves it into a string
  * @param filepath filepath to .env file
@@ -39,8 +41,17 @@ const setEnv = (parsedContent: string[][]): void => {
  * @returns {[index: string]: string} Denos current envs as object
  */
 export const dotenv = (filepath?: string): { [index: string]: string } => {
-    const fileContent = parseEnvFileToFileContent(filepath? filepath: '.env');
-    const parsedEnvs = parseEnvVarsFromFileContent(fileContent);
-    setEnv(parsedEnvs);
+    let fileContent = '';
+    try {
+        fileContent = parseEnvFileToFileContent(filepath? filepath: '.env');
+    } catch (error) {
+        Logger.debug(import.meta.url, `Error reading dotenv file : ${error}`);
+        Logger.debug(import.meta.url, `Using constants from src/utils/constants.ts instead`);
+    }
+    if (fileContent != '') {
+        const parsedEnvs = parseEnvVarsFromFileContent(fileContent);
+        setEnv(parsedEnvs);
+    }
     return Deno.env.toObject();
+
 }
