@@ -53,7 +53,6 @@ const setupApp = (): Application<Record<string, any>> => {
 
 const initMongo = (): void => {
     void MongoClientWrapper.initMongoClient(connectionString, database);
-    // await MongoClientWrapper.printUsers();
 };
 
 const run = async (): Promise<void> => {

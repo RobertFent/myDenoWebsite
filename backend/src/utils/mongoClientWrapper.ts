@@ -1,4 +1,4 @@
-import { Collection, Database, MongoClient } from "../../deps.ts";
+import { MongoClient, Database, Collection } from "../../deps.ts";
 import { User } from "../models/user.d.ts";
 import { VisitorEntry } from "../models/visitorEntry.d.ts";
 import { Logger } from "./logger.ts";
@@ -18,19 +18,34 @@ export class MongoClientWrapper {
     private static async tryConnectUntilSuccess(uri: string): Promise<void> {
         Logger.debug(import.meta.url, 'Trying to connect until success');
         await new Promise<void>((res, rej) => {
-            const connectionInterval = setInterval(() => {
+            const connectionInterval = setInterval(async () => {
                 Logger.debug(import.meta.url, `Currently in connection interval; URI: ${uri}`);
-                this.mClient.connectWithUri(uri);
-                // if client gets dbs, its probably connected
-                void this.mClient.listDatabases().then(() => {
-                    Logger.info(import.meta.url, 'Db connection established');
-                    this.isConnected = true;
-                    // todo? clearInterval + res or only res?
-                    clearInterval(connectionInterval);
-                    res();
-                }).catch((err) => {
-                    Logger.error(import.meta.url, `No connection to db could be made: ${err}`)
-                });
+                // used for mongo atlas
+                /* const db = await this.mClient.connect({
+                    db: "deno",
+                    tls: true,
+                    servers: [
+                      {
+                        host: "denocluster-shard-00-02.s7s6n.mongodb.net",
+                        port: 27017,
+                      },
+                    ],
+                    credential: {
+                      username: "root",
+                      password: "Q0Da8hLVr37zTm5N",
+                      db: "deno",
+                      mechanism: "SCRAM-SHA-1",
+                    },
+                  });
+                  */
+                
+                const db = await this.mClient.connect(uri);
+                Logger.debug(import.meta.url, `Connected to: ${db}`);
+                // only reaches block when connecting works I guess
+                this.isConnected = true;
+                // todo? clearInterval + res or only res?
+                clearInterval(connectionInterval);
+                res();
                 // 5 sec interval
             }, 5000);
         });
@@ -43,6 +58,8 @@ export class MongoClientWrapper {
         this.db = this.mClient.database(dbName);
         this.users = this.db.collection<User>("users");
         this.visitorEntries = this.db.collection<VisitorEntry>("visitorEntries");
+
+        Logger.debug(import.meta.url, `DB Setup successfull`);
     }
 
     public static async insertVisitor(ip: string, date: string) {
@@ -63,6 +80,6 @@ export class MongoClientWrapper {
     }
 
     public static async getVisitorEntries(): Promise<VisitorEntry[]> {
-        return await this.visitorEntries.find();
+        return await this.visitorEntries.find().toArray();
     }
 }
