@@ -2,7 +2,7 @@ import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
-import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME } from "./utils/constants.ts";
+import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
 import { Logger } from "./utils/logger.ts";
 
@@ -12,6 +12,8 @@ const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
 const hostname = env.HOST_NAME || HOST_NAME;
 const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
 const database = env.DATABASE || DEFAULT_DB;
+// without casting to number first value is always true
+const usesAtlas = Boolean(Number(env.MONGO_ATLAS)) || MONGO_ATLAS;
 
 // deno-lint-ignore no-explicit-any
 const setupApp = (): Application<Record<string, any>> => {
@@ -52,7 +54,7 @@ const setupApp = (): Application<Record<string, any>> => {
 };
 
 const initMongo = (): void => {
-    void MongoClientWrapper.initMongoClient(connectionString, database);
+    void MongoClientWrapper.initMongoClient(connectionString, database, usesAtlas);
 };
 
 const run = async (): Promise<void> => {
