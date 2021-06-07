@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mongodb:
+  my-mongodb:
     image: mongo:4.4-bionic
     container_name: my-mongodb
     ports:
@@ -12,6 +12,14 @@ services:
     volumes:
       - mongodb:/data/db
       - mongoconfig:/data/configdb
+    # network_mode: "host"
+  my-deno-website:
+    image: robertfent1/deno-website:v0.2.0
+    container_name: my-deno-website
+    ports:
+      - 8070:8070
+    volumes:
+      - ./logs/:/myDenoWebsite/logs
     # network_mode: "host"
 
 volumes:

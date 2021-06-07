@@ -1,5 +1,5 @@
 ### build docker image
-```docker build -t robertfent1/deno-website:v0.2.0 -f docker/Dockerfile .```
+```docker build -t robertfent1/deno-website:v0.2.1 -f docker/Dockerfile .```
 
 ### run docker image
-```docker run -it robertfent1/deno-website:v0.2.0```
+```docker run -it robertfent1/deno-website:v0.2.1```
