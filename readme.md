@@ -8,11 +8,11 @@
 ## Frontend
 ## Docker
 ## Scripts
-- run launch website to: - launch website in watch mode or not
-                         - reload external deps in cache and check their integrity
-- run cache to: - update lockfile based on current deps
-                - cache types used in main file
-                - reload cached external deps
+- run launch website to: - launch website in watch mode or not (-w)
+                         - reload external deps in cache and check their integrity (-f)
+- run cache to: - update lockfile based on current deps (-d)
+                - cache types used in main file (-t)
+                - reload cached external deps (-r)
 - launch for dev: ../scripts/launch_website.sh -w -f
 - setup ide: ../scripts/cache -r -t
 
@@ -42,4 +42,4 @@ mongodb://admin:admin@{ip}:27017
 ```
 
 ### todos
-- dockerize website
+- save docker logs
