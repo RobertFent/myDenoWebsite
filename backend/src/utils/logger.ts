@@ -1,4 +1,4 @@
-import { basename, bold, cyan, green, red, ensureDir, emptyDir } from '../../deps.ts';
+import { basename, bold, cyan, green, red, ensureDir } from '../../deps.ts';
 import { generateTimestamp, generateCurrentDayTimestamp } from "./utils.ts";
 
 type DebugLevel = 'ERROR' | 'DEBUG' | 'INFO';

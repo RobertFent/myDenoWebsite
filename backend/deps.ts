@@ -8,4 +8,4 @@ export { bold, cyan, green, yellow, red } from "https://deno.land/std@0.73.0/fmt
 export { viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/view_engine@v1.4.5/mod.ts";
 export { basename } from 'https://deno.land/std@0.75.0/path/mod.ts';
 export { format } from "https://deno.land/std@0.83.0/datetime/mod.ts";
-export { ensureDir, emptyDir } from "https://deno.land/std@0.100.0/fs/mod.ts";
+export { ensureDir } from "https://deno.land/std@0.100.0/fs/mod.ts";
