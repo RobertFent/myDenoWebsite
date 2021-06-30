@@ -19,7 +19,7 @@ services:
     ports:
       - 8070:8070
     volumes:
-      - ./logs/:/myDenoWebsite/logs
+      - ./logs/:/app/logs
     # network_mode: "host"
 
 volumes:
