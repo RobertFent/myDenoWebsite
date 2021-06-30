@@ -23,7 +23,7 @@
 ```./scripts/cache.sh -r -d```
 ```./scripts/launch_website.sh -f```
 
-## currently debugging mongo
+## mongo connection strings
 - depending on docker or local db change uri
 ```
 mongodb://admin:admin@my-mongodb:27017
@@ -40,6 +40,3 @@ ip addr show eth0 | grep 'inet\b' | awk '{print $2}' | cut -d/ -f1
 ```
 mongodb://admin:admin@{ip}:27017
 ```
-
-### todos
-- save docker logs
