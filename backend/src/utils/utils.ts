@@ -1,3 +1,5 @@
+import { format } from "../../deps.ts";
+
 // this offset makes utc+0 to utc+1; 1hr in ms
 const offsetInMs = 1 * 60 * 60 * 1000;
 
@@ -21,9 +23,18 @@ export const generateTimestamp = (): string => {
 };
 
 /**
+ * return yyyy-mm-dd timestamp
+ * @module utils
+ * @returns {string} yyyy-mm-dd
+ */
+ export const generateCurrentDayTimestamp = (): string => {
+    return format(new Date(), 'dd-MM-yyyy');
+};
+
+/**
  * returns current day as number
  * @module utils
- * @returns {string} yyyy-mm-dd hh:mm:ss
+ * @returns {number} dd
  */
 export const getCurrentDay = (): number => {
     return new Date(Date.now() + offsetInMs).getDate();

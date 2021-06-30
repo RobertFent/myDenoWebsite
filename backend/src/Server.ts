@@ -6,6 +6,9 @@ import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS } fr
 import { dotenv } from './utils/dotenv.parser.ts';
 import { Logger } from "./utils/logger.ts";
 
+// init logger
+Logger.init();
+
 // server config
 const env = dotenv();
 const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
