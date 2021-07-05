@@ -20,7 +20,7 @@ export class MongoClientWrapper {
 
     // todo interval takes 30sec if no connection can be made
     private static async tryConnectUntilSuccess(uri: string, usesAtlas: boolean): Promise<void> {
-        await new Promise<void>((res, rej) => {
+        await new Promise<void>((res) => {
             const connectionInterval = setInterval(async () => {
                 Logger.startup(import.meta.url, `Currently in connection interval; URI: ${uri}`);
 

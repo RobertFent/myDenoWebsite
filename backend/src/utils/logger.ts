@@ -5,7 +5,9 @@ import { LogEntry } from "../models/logEntry.d.ts";
 
 type DebugLevel = 'ERROR' | 'DEBUG' | 'INFO' | 'STARTUP';
 
+// deprecated
 // appends given line to log.txt file
+// deno-lint-ignore no-unused-vars
 const writeToFile = (line: string): void => {
     try {
         const currentDay = generateCurrentDayTimestamp();
@@ -55,9 +57,9 @@ export class Logger {
     private static log(level: DebugLevel, colorFct: (str: string) => string, serviceName: string, message: string) {
         const timestamp = generateTimestamp();
         if (this.loggerIsInit) {
-            const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
             console.log(`${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`);
-            writeToFile(fileLine);
+            // const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
+            // writeToFile(fileLine);
             void writeToDB(timestamp, level, serviceName, message);
         } else {
             console.log(`${bold(timestamp)} -- ${red('ERROR')} -- ${red(serviceName)} -- no logger is initialized!`);

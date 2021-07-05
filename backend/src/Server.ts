@@ -1,6 +1,7 @@
 import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
+// deno-lint-ignore no-unused-vars
 import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
 import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
