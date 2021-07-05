@@ -12,6 +12,7 @@ export class MongoClientWrapper {
     private static logs: Collection<LogEntry>;
     private static userName: string;
     private static password: string;
+    private static maxRetries = 3;
 
     public static isConnected = false;
 
@@ -20,51 +21,67 @@ export class MongoClientWrapper {
 
     // todo interval takes 30sec if no connection can be made
     private static async tryConnectUntilSuccess(uri: string, usesAtlas: boolean): Promise<void> {
-        await new Promise<void>((res) => {
+        let retries = 0;
+        await new Promise<void>((res, rej) => {
             const connectionInterval = setInterval(async () => {
                 Logger.startup(import.meta.url, `Currently in connection interval; URI: ${uri}`);
 
                 // decide to connect with atlas or not
-                const db = usesAtlas ? await this.mClient.connect({
-                    db: "deno",
-                    tls: true,
-                    servers: [
-                      {
-                        host: "denocluster-shard-00-02.s7s6n.mongodb.net",
-                        port: 27017,
-                      },
-                    ],
-                    credential: {
-                      username: this.userName,
-                      password: this.password,
-                      db: "test",
-                      mechanism: "SCRAM-SHA-1",
-                    },
-                  })
-                : await this.mClient.connect(uri);
-                Logger.startup(import.meta.url, `Connected to: ${db}`);
-                // only reaches block when connecting works I guess
-                this.isConnected = true;
-                // todo? clearInterval + res or only res?
-                clearInterval(connectionInterval);
-                res();
+                try {
+                    const db = usesAtlas ? await this.mClient.connect({
+                        db: "test",
+                        tls: true,
+                        servers: [
+                            {
+                            host: "denocluster-shard-00-02.s7s6n.mongodb.net",
+                            port: 27017,
+                            },
+                        ],
+                        credential: {
+                            username: this.userName,
+                            password: this.password,
+                            db: "test",
+                            mechanism: "SCRAM-SHA-1",
+                        },
+                        })
+                    : await this.mClient.connect(uri);
+                    Logger.startup(import.meta.url, `Connected to: ${db}`);
+                    // only reaches block when connecting works I guess
+                    this.isConnected = true;
+                    // todo? clearInterval + res or only res?
+                    clearInterval(connectionInterval);
+                    res();
+                } catch (error) {
+                    Logger.error(import.meta.url, error.message);
+                    retries++;
+                    if (retries >= this.maxRetries) {
+                        clearInterval(connectionInterval);
+                        rej();
+                    }
+                }
                 // 5 sec interval
             }, 5000);
         });
     }
 
-    public static async initMongoClient(uri: string, dbName: string, usesAtlas: boolean) {
+    public static initMongoClient(uri: string, dbName: string, usesAtlas: boolean) {
         this.mClient = new MongoClient();
         Logger.startup(import.meta.url, `Using Atlas: ${usesAtlas}`);
         this.setCredentials(uri);
-        await this.tryConnectUntilSuccess(uri, usesAtlas);
-        // code below here will only be called if connection could be made successfully
-        this.db = this.mClient.database(dbName);
-        this.users = this.db.collection<User>("users");
-        this.visitorEntries = this.db.collection<VisitorEntry>("visitorEntries");
-        this.logs = this.db.collection<LogEntry>("logs");
+        this.tryConnectUntilSuccess(uri, usesAtlas).then(() => {
+            // code below here will only be called if connection could be made successfully
+            this.db = this.mClient.database(dbName);
+            this.users = this.db.collection<User>("users");
+            this.visitorEntries = this.db.collection<VisitorEntry>("visitorEntries");
+            this.logs = this.db.collection<LogEntry>("logs");
 
-        Logger.startup(import.meta.url, `DB Setup successfull`);
+            Logger.startup(import.meta.url, 'DB Setup successfull');
+        }).catch(() => {
+            Logger.error(import.meta.url, 'DB connection timed out!')
+        });
+        
+    
+        
     }
 
     public static async insertVisitor(ip: string, date: string) {

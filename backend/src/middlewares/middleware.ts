@@ -91,7 +91,7 @@ export const viewEngineSetter = (): any => {
  * @module middleware
  * @throws {HttpError}
  */
-export const notFound = (): HttpError => {
+export const notFound = () => {
     const httpError = new HttpError();
     httpError.status = Status.NotFound;
     throw httpError;

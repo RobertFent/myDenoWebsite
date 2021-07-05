@@ -1,8 +1,7 @@
 import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
-// deno-lint-ignore no-unused-vars
-import { cookieUser, errorHandler, notFound, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
+import { cookieUser, errorHandler, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
 import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
 import { Logger } from "./utils/logger.ts";
@@ -35,15 +34,10 @@ const setupApp = (): Application<Record<string, any>> => {
     
     // init routes and its methods
     app.use(router.routes());
-    // todo get 405, 501 instead of 404
     app.use(router.allowedMethods());
 
     // needs to be set after routing to not fuck up other routes than root
     app.use(staticFileHandler);
-
-    // todo getting images returns 404 if this middleware is active
-    // used when no route matches
-    // app.use(notFound);
 
     // setup listeners
     app.addEventListener("listen", (event) => {
@@ -65,7 +59,6 @@ const run = async (): Promise<void> => {
     try {
         // init stuff
         const app = setupApp();
-        // todo server not working if mongo has no connection
         initMongo();
 
         // launch server
@@ -76,15 +69,3 @@ const run = async (): Promise<void> => {
 };
 
 await run();
-
-// todo? write server without deps like oak
-/* const server = serve({ port: port });
-
-// main loop of the server
-for await (const req of server) {
-  const path = req.url;
-  const method = req.method;
-  const buf = await Deno.readAll(req.body);
-  // console.log(`Path: ${path}, Method: ${method}, Body: ${JSON.stringify(body)}`);
-  req.respond({ body: greetings("Deno") });
-} */
