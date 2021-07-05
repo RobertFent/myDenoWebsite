@@ -40,5 +40,5 @@ if [[ "$PWD" =~ $REGEX ]]; then
         deno cache $DENO_ARGS --reload --lock=backend/lock.json backend/deps.ts
         echo "Reloaded external deps"
     fi
-else echo  "Pls run this script from the root folder"
+else echo "Pls run this script from the root folder"
 fi
