@@ -40,3 +40,6 @@ ip addr show eth0 | grep 'inet\b' | awk '{print $2}' | cut -d/ -f1
 ```
 mongodb://admin:admin@{ip}:27017
 ```
+
+## todo
+- proper secrets
