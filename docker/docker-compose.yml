@@ -14,12 +14,10 @@ services:
       - mongoconfig:/data/configdb
     # network_mode: "host"
   my-deno-website:
-    image: robertfent1/deno-website:v0.2.2
+    image: robertfent1/deno-website:v0.3
     container_name: my-deno-website
     ports:
       - 8070:8070
-    volumes:
-      - ./logs/:/app/logs
     # network_mode: "host"
 
 volumes:

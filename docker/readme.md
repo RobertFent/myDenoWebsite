@@ -1,8 +1,8 @@
 ### build docker image
-```docker build -t robertfent1/deno-website:v0.2.2 -f docker/Dockerfile .```
+```docker build -t robertfent1/deno-website:v0.x.x -f docker/Dockerfile .```
 
-### run docker image
-```docker run -it robertfent1/deno-website:v0.2.2```
+### run docker image with mongo in compose file
+```docker-compose -f docker/docker-compose.yml up```
 
 ### push new image to registry
-```docker push robertfent1/deno-website:v0.2.2```
+```docker push robertfent1/deno-website:v0.x.x```
