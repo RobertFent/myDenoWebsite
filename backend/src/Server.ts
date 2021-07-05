@@ -46,7 +46,7 @@ const setupApp = (): Application<Record<string, any>> => {
 
     // setup listeners
     app.addEventListener("listen", (event) => {
-        Logger.info(import.meta.url, `Server listening on http://${event.hostname}:${event.port}`);
+        Logger.startup(import.meta.url, `Server listening on http://${event.hostname}:${event.port}`);
     });
 
     app.addEventListener('error', (event) => {

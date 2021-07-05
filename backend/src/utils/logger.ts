@@ -1,7 +1,9 @@
-import { basename, bold, cyan, green, red, ensureDir } from '../../deps.ts';
+import { basename, bold, cyan, green, red, yellow, ensureDir } from '../../deps.ts';
 import { generateTimestamp, generateCurrentDayTimestamp } from "./utils.ts";
+import { MongoClientWrapper } from './mongoClientWrapper.ts';
+import { LogEntry } from "../models/logEntry.d.ts";
 
-type DebugLevel = 'ERROR' | 'DEBUG' | 'INFO';
+type DebugLevel = 'ERROR' | 'DEBUG' | 'INFO' | 'STARTUP';
 
 // appends given line to log.txt file
 const writeToFile = (line: string): void => {
@@ -15,6 +17,21 @@ const writeToFile = (line: string): void => {
             // should never happen
             console.log('Log folder not found! Check if it is created!');
         }
+    }
+}
+
+const writeToDB = (timestamp: string, level: DebugLevel, serviceName: string, message: string): Promise<void> | void => {
+    try {
+        const logEntry: LogEntry = {
+            timestamp: timestamp,
+            level: level,
+            service: serviceName,
+            message: message
+        }
+        // only log when db can be accessed and log is not a startup log
+        if (MongoClientWrapper.isConnected && level !== 'STARTUP') return MongoClientWrapper.insertLog(logEntry);
+    } catch (error) {
+        console.log(`Could not write logs to db: ${error}`);
     }
 }
 
@@ -41,6 +58,7 @@ export class Logger {
             const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
             console.log(`${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`);
             writeToFile(fileLine);
+            void writeToDB(timestamp, level, serviceName, message);
         } else {
             console.log(`${bold(timestamp)} -- ${red('ERROR')} -- ${red(serviceName)} -- no logger is initialized!`);
         }
@@ -57,5 +75,9 @@ export class Logger {
 
     public static error(serviceName: string, message: string) {
         this.log('ERROR', red, basename(serviceName), message);
+    }
+
+    public static startup(serviceName: string, message: string) {
+        this.log('STARTUP', yellow, basename(serviceName), message);
     }
 }

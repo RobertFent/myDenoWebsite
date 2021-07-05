@@ -1,7 +1,6 @@
-// todo optional id ok?
 export interface VisitorEntry {
     _id?: { $oid: string },
+    timestamp: string
     name: string,
     message: string,
-    timestamp: string
 }
