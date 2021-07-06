@@ -16,7 +16,12 @@ const parseVisitorEntry = async (ctx: RouterContext): Promise<VisitorEntry> => {
 
 // deno-lint-ignore no-explicit-any
 export const getVisitorsBook = async (ctx: any) => {
-    let existingEntries: VisitorEntry[] = [];
+    // entries loaded when no db connection is available
+    let existingEntries: VisitorEntry[] = [
+        { timestamp: generateTimestamp(), name: 'Test User 1', message: 'Test Entry 1'},
+        { timestamp: generateTimestamp(), name: 'Test User 2', message: 'Test Entry 2'},
+        { timestamp: generateTimestamp(), name: 'Test User 3', message: 'Test Entry 3'}
+    ];
     if (MongoClientWrapper.isConnected) {
         existingEntries = await MongoClientWrapper.getVisitorEntries();
     } else {
