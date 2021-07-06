@@ -58,9 +58,8 @@ export class Logger {
         const timestamp = generateTimestamp();
         if (this.loggerIsInit) {
             console.log(`${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`);
-            // const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
-            // writeToFile(fileLine);
-            void writeToDB(timestamp, level, serviceName, message);
+            const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
+            MongoClientWrapper.isConnected ? void writeToDB(timestamp, level, serviceName, message) : writeToFile(fileLine);
         } else {
             console.log(`${bold(timestamp)} -- ${red('ERROR')} -- ${red(serviceName)} -- no logger is initialized!`);
         }
