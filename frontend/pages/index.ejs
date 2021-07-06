@@ -24,8 +24,24 @@
                     <h6>Hello from Deno!</h6>
                     <div class="website-description">
                         <img src="./assets/deno_logo.svg" width="150" />
-                        <p>This is a text describing the backend built with deno.</p>
-                        <p>The frontend will also be mentioned a little</p>
+                        <p>
+                            The backend of this website is written in <a href="https://deno.land/">Deno</a>.
+                            This is a JavaScript runtime with built-in TypeScript support using <a href="https://v8.dev/">V8</a>.
+                            Deno is built in Rust and was created by Ryan Dahl (the former creator of <a href="https://nodejs.org/en/">NodeJS</a>).
+                        </p>
+                        <p>
+                            The frontend is written in <a href="https://ejs.co/">EJS</a>. It's a simple templating langague where you can generate HTML with JavaScript.
+                            The HTML is then rendered by an ejs render engine in Deno.
+                        </p>
+                        <p>
+                            To save the entries in the visitors book the backend is using a <a href="https://www.mongodb.com/">MongoDB</a>.
+                        </p>
+                        <p>
+                            The Deno application and the database run both in separate <a href="https://www.docker.com/">docker</a> containers to make the setup as simple and fast as possible on multiple different architectures.
+                        </p>
+                        <p>
+                            This website runs on my VPS which is based in Frankfurt and is exposed by <a href="https://doc.traefik.io/">Traefik</a>, a reverse proxy and load balancer for a easy deployment of microservices.
+                        </p>
                     </div>
                 </div>
                 <div class="col s12 m4 l4">
@@ -41,11 +57,11 @@
                                     </tr>
                                     <tr>
                                         <td>Age</td>
-                                        <td>22</td>
+                                        <td>23</td>
                                     </tr>
                                     <tr>
                                         <td>Employment</td>
-                                        <td>Student/Software Engineer</td>
+                                        <td>Student</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -58,7 +74,18 @@
                 <div class="col s12 m4 l4">
                     <h6>my story</h6>
                     <div class="story">
-                        <p>This is a text describing me and telling my story</p>
+                        <p class="h7">Background</p>
+                        <p>
+                            Hello, my name is Robert. I am 23 years old and have a bachelor's degree in media informatics. This winter I will start the master in computer science.
+                        </p>
+                        <p class="h7">IT Experience</p>
+                        <p>
+                            tbd
+                        </p>
+                        <p class="h7">Projects</p>
+                        <p>
+                            tbd
+                        </p>
                     </div>
                 </div>
             </div>
