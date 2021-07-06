@@ -3,11 +3,17 @@ import { generateTimestamp, generateCurrentDayTimestamp } from "./utils.ts";
 import { MongoClientWrapper } from './mongoClientWrapper.ts';
 import { LogEntry } from "../models/logEntry.d.ts";
 
-type DebugLevel = 'ERROR' | 'DEBUG' | 'INFO' | 'STARTUP';
+const logLevelStrings = ['STARTUP', 'DEBUG', 'INFO', 'ERROR'];
+
+export enum LogLevel {
+    'STARTUP' = 0,
+    'DEBUG',
+    'INFO',
+    'ERROR'
+}
 
 // deprecated
 // appends given line to log.txt file
-// deno-lint-ignore no-unused-vars
 const writeToFile = (line: string): void => {
     try {
         const currentDay = generateCurrentDayTimestamp();
@@ -22,7 +28,7 @@ const writeToFile = (line: string): void => {
     }
 }
 
-const writeToDB = (timestamp: string, level: DebugLevel, serviceName: string, message: string): Promise<void> | void => {
+const writeToDB = (timestamp: string, level: string, serviceName: string, message: string): Promise<void> | void => {
     try {
         const logEntry: LogEntry = {
             timestamp: timestamp,
@@ -43,23 +49,27 @@ const setupLogEnv = (): void => {
 
 export class Logger {
 
+    private static minLogLevel: LogLevel;
     private static loggerIsInit = false;
 
     // set constructor to private to prevent extending this class
     private constructor() {
     }
 
-    public static init() {
+    public static init(logLevel: LogLevel) {
         setupLogEnv();
+        this.minLogLevel = logLevel;
         this.loggerIsInit = true;
+        console.log(`minLogLevel: ${logLevelStrings[this.minLogLevel]}`);
     }
 
-    private static log(level: DebugLevel, colorFct: (str: string) => string, serviceName: string, message: string) {
+    private static log(level: LogLevel, colorFct: (str: string) => string, serviceName: string, message: string) {
         const timestamp = generateTimestamp();
+        const logLevel = logLevelStrings[level];
         if (this.loggerIsInit) {
-            console.log(`${bold(timestamp)} -- ${colorFct(level)} -- ${colorFct(serviceName)} -- ${message}`);
-            const fileLine = `${timestamp} -- ${level} -- ${serviceName} -- ${message}`;
-            MongoClientWrapper.isConnected ? void writeToDB(timestamp, level, serviceName, message) : writeToFile(fileLine);
+            console.log(`${bold(timestamp)} -- ${colorFct(logLevel)} -- ${colorFct(serviceName)} -- ${message}`);
+            const fileLine = `${timestamp} -- ${logLevel} -- ${serviceName} -- ${message}`;
+            MongoClientWrapper.isConnected && level >= this.minLogLevel ? void writeToDB(timestamp, logLevel, serviceName, message) : writeToFile(fileLine);
         } else {
             console.log(`${bold(timestamp)} -- ${red('ERROR')} -- ${red(serviceName)} -- no logger is initialized!`);
         }
@@ -67,18 +77,18 @@ export class Logger {
     }
 
     public static info(serviceName: string, message: string) {
-        this.log('INFO', green, basename(serviceName), message);
+        this.log(LogLevel.INFO, green, basename(serviceName), message);
     }
 
     public static debug(serviceName: string, message: string) {
-        this.log('DEBUG', cyan, basename(serviceName), message);
+        this.log(LogLevel.DEBUG, cyan, basename(serviceName), message);
     }
 
     public static error(serviceName: string, message: string) {
-        this.log('ERROR', red, basename(serviceName), message);
+        this.log(LogLevel.ERROR, red, basename(serviceName), message);
     }
 
     public static startup(serviceName: string, message: string) {
-        this.log('STARTUP', yellow, basename(serviceName), message);
+        this.log(LogLevel.STARTUP, yellow, basename(serviceName), message);
     }
 }
