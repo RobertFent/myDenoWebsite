@@ -19,7 +19,6 @@ export class MongoClientWrapper {
     // set constructor to private to prevent extending this class
     private constructor() { }
 
-    // todo interval takes 30sec if no connection can be made
     private static async tryConnectUntilSuccess(uri: string, usesAtlas: boolean): Promise<void> {
         let retries = 0;
         await new Promise<void>((res, rej) => {
