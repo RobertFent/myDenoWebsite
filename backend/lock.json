@@ -1,9 +1,9 @@
 {
   "https://cdn.skypack.dev/-/base64-js@v1.5.1-W9sqY0mF5INkRg7HAvxn/dist=es2020,mode=imports/optimized/base64-js.js": "4566964bb37bf2a057d872b75540c57b181afddb4d1a3360e8f25e9f98259f50",
-  "https://cdn.skypack.dev/-/bson@v4.4.0-ra2mXivLVFDaHjwfzNij/dist=es2020,mode=imports/optimized/bson.js": "7b0983b09d3fff399d0c0789f384f84bee90e94dcdbbf5c53a6ddf545094b84d",
+  "https://cdn.skypack.dev/-/bson@v4.4.0-FWtCzGTuhxLzZgI285hb/dist=es2020,mode=imports/optimized/bson.js": "7b0983b09d3fff399d0c0789f384f84bee90e94dcdbbf5c53a6ddf545094b84d",
   "https://cdn.skypack.dev/-/buffer@v5.7.1-Crl6ndaY0FyV50ZOgBvz/dist=es2020,mode=imports/optimized/buffer.js": "2b288e451f8eb1a846aabfe2478184072a718e088671c2cafe85b1f6686f2dd3",
   "https://cdn.skypack.dev/-/ieee754@v1.2.1-wxdRuKvQQOTpW1dpWzFI/dist=es2020,mode=imports/optimized/ieee754.js": "d2f73784b95c354f399103302c65c5d0fe52bc869379d322a0b2e1185d2ad3f8",
-  "https://cdn.skypack.dev/bson": "b40b87940e0d8e773665368499ec5fd12787ac754dc2c703c425e47eb27fa208",
+  "https://cdn.skypack.dev/bson": "47ba95e94c93694c499b22f1675e5f058173543c189539774d066cfadcf5496c",
   "https://deno.land/std@0.100.0/_util/assert.ts": "2f868145a042a11d5ad0a3c748dcf580add8a0dbc0e876eaa0026303a5488f58",
   "https://deno.land/std@0.100.0/_util/os.ts": "e282950a0eaa96760c0cf11e7463e66babd15ec9157d4c9ed49cc0925686f6a7",
   "https://deno.land/std@0.100.0/fs/_util.ts": "f2ce811350236ea8c28450ed822a5f42a0892316515b1cd61321dec13569c56b",
