@@ -2,7 +2,7 @@ import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { cookieUser, errorHandler, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
-import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS, DEFAULT_LOG_LEVEL } from "./utils/constants.ts";
+import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS, DEFAULT_LOG_LEVEL, VERSION_TAG } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
 import { Logger, LogLevel } from "./utils/logger.ts";
 
@@ -12,6 +12,7 @@ const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
 const hostname = env.HOST_NAME || HOST_NAME;
 const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
 const database = env.DATABASE || DEFAULT_DB;
+const versionTag = env.VERSION_TAG || VERSION_TAG;
 // deno-lint-ignore no-explicit-any
 const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAULT_LOG_LEVEL;
 // without casting to number first value is always true
@@ -59,6 +60,7 @@ const initMongo = (): void => {
 
 const run = async (): Promise<void> => {
     try {
+        Logger.startup(import.meta.url, `Current version: ${versionTag}`);
         // init stuff
         const app = setupApp();
         initMongo();
