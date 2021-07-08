@@ -31,7 +31,9 @@ const setupApp = (): Application<Record<string, any>> => {
     // setup middleware
     app.use(errorHandler);
     app.use(requestLogger);
-    app.use(cookieUser);
+
+    // disable cookies for now
+    // app.use(cookieUser);
 
     app.use(viewEngineSetter());
     
