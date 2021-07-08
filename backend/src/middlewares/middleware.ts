@@ -27,9 +27,10 @@ export const errorHandler = async (ctx: Context, next: () => any): Promise<void>
             }
             ctx.response.status = error.status;
         } else {
-            ctx.response.body = "Internal Server Error";
-            ctx.response.status = Status.InternalServerError;
             Logger.error(import.meta.url, `Server error: ${error}`);
+            ctx.response.body = "Internal Server Error :(";
+            ctx.response.status = Status.InternalServerError;
+            
         }
     }
 };
