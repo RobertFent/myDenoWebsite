@@ -3,4 +3,5 @@ export interface VisitorEntry {
     timestamp: string
     name: string,
     message: string,
+    ip: string
 }
