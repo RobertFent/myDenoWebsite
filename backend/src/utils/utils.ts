@@ -1,4 +1,5 @@
 import { format } from "../../deps.ts";
+import { Logger } from "./logger.ts";
 
 // this offset makes utc+0 to utc+1; 1hr in ms
 const offsetInMs = 1 * 60 * 60 * 1000;
@@ -50,6 +51,27 @@ export const getDayFromCustomTimestamp = (timestamp: string): number => {
     const date = timestamp.split('-')[2];
     const day = date.split(' ')[0];
     return Number(day);
+}
+
+/**
+ * read headers and returning x-real-ip if set
+ * else returning x-forwarded-for
+ * @param ctx RouterContext
+ * @returns ip in string format 
+ */
+export const getIp = (ctx: any): string => {
+    let realIp;
+    try {
+        realIp = ctx.request.headers.get('x-real-ip');
+    } catch (error) {
+        Logger.error(import.meta.url, `Error parsing x-real-ip: ${error.message}`)
+    }
+    // returning x-real-ip if it is set
+    if (realIp) return realIp;
+    
+    // returning x-forwared-for if x-real-ip is not set
+    Logger.debug(import.meta.url, 'No x-real-ip set! Falling back to x-forwarded-for...')
+    return ctx.request.ip;
 }
 
 export const staticDir = `${Deno.cwd()}/frontend/static`
