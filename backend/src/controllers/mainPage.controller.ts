@@ -29,7 +29,7 @@ export const getMainPage = async (ctx: any) => {
     // insert visitor if access to db
     if (MongoClientWrapper.isConnected) {
         // return if visitor already exists
-        if (await MongoClientWrapper.getVisitor(ip)) {
+        if (await MongoClientWrapper.getVisitorByIp(ip)) {
             Logger.debug(import.meta.url, `Visitor (${ip}) already exists. No new visitor is created!`);
             return;
         }
