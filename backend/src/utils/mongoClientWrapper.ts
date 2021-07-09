@@ -84,11 +84,14 @@ export class MongoClientWrapper {
     }
 
     public static async insertVisitor(ip: string, date: string) {
-        Logger.debug(import.meta.url, `Inserting new user. Ip: ${ip}`);
         await this.users.insertOne({
             ip: ip,
             date: date
         });
+    }
+
+    public static async getVisitor(ip: string) {
+        return await this.users.findOne({ip: ip});
     }
 
     public static async insertVisitorEntry(entry: VisitorEntry): Promise<void> {
