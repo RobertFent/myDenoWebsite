@@ -70,6 +70,7 @@ export class MongoClientWrapper {
         this.tryConnectUntilSuccess(uri, usesAtlas).then(() => {
             // code below here will only be called if connection could be made successfully
             this.db = this.mClient.database(dbName);
+            Logger.startup(import.meta.url, `Using database: ${dbName}`);
             this.users = this.db.collection<User>("users");
             this.visitorEntries = this.db.collection<VisitorEntry>("visitorEntries");
             this.logs = this.db.collection<LogEntry>("logs");
@@ -127,6 +128,6 @@ export class MongoClientWrapper {
         this.userName = uriParts[1].slice(2)
         // use part before '@'
         this.password = uriParts[2].split('@')[0]
-        Logger.startup(import.meta.url, `Db credentials set!\nuser: ${this.userName}\npassword: ${this.password}`);
+        Logger.startup(import.meta.url, `Db credentials set! user: ${this.userName} password: ${this.password}`);
     }
 }
