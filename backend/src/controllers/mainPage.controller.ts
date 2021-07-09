@@ -1,4 +1,4 @@
-import { generateTimestamp, getCurrentDay, getDayFromCustomTimestamp, pagesDir } from "../utils/utils.ts";
+import { generateTimestamp, getCurrentDay, getDayFromCustomTimestamp, getIp, pagesDir } from "../utils/utils.ts";
 import { MongoClientWrapper } from "../utils/mongoClientWrapper.ts";
 import { PageInformation } from "../utils/constants.ts";
 import { Logger } from "../utils/logger.ts";
@@ -22,19 +22,25 @@ const newVisitation = (timestamp: string): boolean => {
  */
 // deno-lint-ignore no-explicit-any
 export const getMainPage = async (ctx: any) => {
-    await ctx.render(`${pagesDir}/${PageInformation.MainPage.HtmlFile}`, {versionTag: versionTag});
-    
-    let realIp;
-    try {
-        realIp = ctx.request.headers.get('x-real-ip');
-        Logger.debug(import.meta.url, `x-real-ip: ${realIp}`);
-    } catch (error) {
-        Logger.error(import.meta.url, error);
-    }
+    await ctx.render(`${pagesDir}/${PageInformation.MainPage.HtmlFile}`, { versionTag: versionTag });
 
-    const ip = realIp ? realIp : ctx.request.ip;
-    MongoClientWrapper.isConnected ? void MongoClientWrapper.insertVisitor(ip, generateTimestamp()) : Logger.info(import.meta.url, 'No connection to db!');
-    
+    const ip = getIp(ctx);
+
+    // insert visitor if access to db
+    if (MongoClientWrapper.isConnected) {
+        // return if visitor already exists
+        if (await MongoClientWrapper.getVisitor(ip)) {
+            Logger.debug(import.meta.url, `Visitor (${ip}) already exists. No new visitor is created!`);
+            return;
+        }
+        void MongoClientWrapper.insertVisitor(ip, generateTimestamp());
+        Logger.info(import.meta.url, `New Visitor is created! ip: ${ip}`);
+    } else {
+        Logger.info(import.meta.url, 'No connection to db. Could not write visitor to db!');
+        Logger.info(import.meta.url, `ip of visitor: ${ip}`);
+    }
+        
+
     // use code below if using cookie 'LastVisit'
     /* if (MongoClientWrapper.isConnected) {
         // only insert same visitor once a day
