@@ -9,6 +9,10 @@ export const PageInformation = {
         GetRoute: '/visitors_book',
         PostRoute: '/visitor_entry',
         HtmlFile: 'visitors_book.ejs'
+    },
+    PrivacyPolicy: {
+        GetRoute: '/privacy_policy',
+        HtmlFile: 'privacy_policy.ejs'
     }
 };
 
