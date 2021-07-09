@@ -17,6 +17,10 @@
 #### pulling changes / fresh install
 - run ../scripts/cache.sh -r -t to reload cached external deps and get types
 
+### todos
+- only one entry per visitor (save ip to each entry)
+- impressum
+
 ### probably wont do's
 - add linting rules when possible
 - use own mongo client to prevent using permissions (maybe)
