@@ -2,6 +2,7 @@ import { generateTimestamp, getCurrentDay, getDayFromCustomTimestamp, pagesDir }
 import { MongoClientWrapper } from "../utils/mongoClientWrapper.ts";
 import { PageInformation } from "../utils/constants.ts";
 import { Logger } from "../utils/logger.ts";
+import { versionTag } from "../Server.ts";
 
 /**
  * visitation counts as new if last visit was not today
@@ -21,7 +22,7 @@ const newVisitation = (timestamp: string): boolean => {
  */
 // deno-lint-ignore no-explicit-any
 export const getMainPage = async (ctx: any) => {
-    await ctx.render(`${pagesDir}/${PageInformation.MainPage.HtmlFile}`);
+    await ctx.render(`${pagesDir}/${PageInformation.MainPage.HtmlFile}`, {versionTag: versionTag});
     
     let realIp;
     try {

@@ -12,11 +12,13 @@ const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
 const hostname = env.HOST_NAME || HOST_NAME;
 const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
 const database = env.DATABASE || DEFAULT_DB;
-const versionTag = env.VERSION_TAG || VERSION_TAG;
 // deno-lint-ignore no-explicit-any
 const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAULT_LOG_LEVEL;
 // without casting to number first value is always true
 const usesAtlas = Boolean(Number(env.MONGO_ATLAS)) || MONGO_ATLAS;
+
+// export this var to use it in controller
+export const versionTag = env.VERSION_TAG || VERSION_TAG;
 
 // init logger
 Logger.init(logLevel);

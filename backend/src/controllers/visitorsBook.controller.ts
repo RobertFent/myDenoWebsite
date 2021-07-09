@@ -4,6 +4,7 @@ import { generateTimestamp, pagesDir } from "../utils/utils.ts";
 import { RouterContext } from "../../deps.ts";
 import { PageInformation } from "../utils/constants.ts";
 import { Logger } from "../utils/logger.ts";
+import { versionTag } from "../Server.ts";
 
 const parseVisitorEntry = async (ctx: RouterContext): Promise<VisitorEntry> => {
     const formData = (await (ctx.request.body({type: 'form-data'}).value.read())).fields
@@ -27,7 +28,7 @@ export const getVisitorsBook = async (ctx: any) => {
     } else {
         Logger.debug(import.meta.url, 'No connection to db! Entries could not be loaded');
     }
-    await ctx.render(`${pagesDir}/${PageInformation.VisitorsBook.HtmlFile}`, {entries: existingEntries});
+    await ctx.render(`${pagesDir}/${PageInformation.VisitorsBook.HtmlFile}`, {entries: existingEntries, versionTag: versionTag});
 }
 
 // todo error handling?
