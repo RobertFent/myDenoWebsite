@@ -90,7 +90,7 @@ export class MongoClientWrapper {
         });
     }
 
-    public static async getVisitor(ip: string) {
+    public static async getVisitorByIp(ip: string): Promise<User | undefined> {
         return await this.users.findOne({ip: ip});
     }
 
@@ -100,11 +100,16 @@ export class MongoClientWrapper {
             timestamp: entry.timestamp,
             name: entry.name,
             message: entry.message,
+            ip: entry.ip
         });
     }
 
     public static async getVisitorEntries(): Promise<VisitorEntry[]> {
         return await this.visitorEntries.find().toArray();
+    }
+
+    public static async getVisitorEntriesByIp(ip: string): Promise<VisitorEntry[] | undefined> {
+        return await this.visitorEntries.find({ip: ip}).toArray();
     }
 
     public static async insertLog(logEntry: LogEntry): Promise<void> {
