@@ -40,7 +40,6 @@ export const postVisitorEntry = async (ctx: RouterContext) => {
 
     // check if visitor did more than three entries and set ability to false
     const existingEntriesByIp = await MongoClientWrapper.getVisitorEntriesByIp(entry.ip);
-    Logger.debug(import.meta.url, `Current entries of visitor: ${JSON.stringify(existingEntriesByIp)}`)
     if ((existingEntriesByIp && existingEntriesByIp.length > 3)) {
         
         Logger.debug(import.meta.url, `Visitor (${entry.ip}) already added three entries!`)
