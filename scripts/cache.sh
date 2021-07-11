@@ -33,8 +33,8 @@ if [[ "$PWD" =~ $REGEX ]]; then
         echo "Wrote deps from ${PWD}/backend/deps.ts into ${PWD}/backend/lock.json "
     fi
     if [ "$TYPES" == "1" ]; then
-        deno cache $DENO_ARGS backend/src/Server.ts
-        echo "Cached types used in main file"
+        deno cache $DENO_ARGS backend/deps.ts
+        echo "Cached types used in deps file"
     fi
     if [ "$RELOAD" == "1" ]; then
         deno cache $DENO_ARGS --reload --lock=backend/lock.json backend/deps.ts
