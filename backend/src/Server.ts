@@ -20,8 +20,6 @@ const usesAtlas = Boolean(Number(env.MONGO_ATLAS)) || MONGO_ATLAS;
 // export this var to use it in controller
 export const versionTag = env.VERSION_TAG || VERSION_TAG;
 
-// init logger
-Logger.init(logLevel);
 
 // deno-lint-ignore no-explicit-any
 const setupApp = (): Application<Record<string, any>> => {
@@ -62,10 +60,13 @@ const initMongo = (): void => {
     void MongoClientWrapper.initMongoClient(connectionString, database, usesAtlas);
 };
 
-const run = async (): Promise<void> => {
+export const run = async (): Promise<void> => {
     try {
+        // init logger
+        Logger.init(logLevel);
         Logger.startup(import.meta.url, `Current version: ${versionTag}`);
-        // init stuff
+        
+        // init application
         const app = setupApp();
         initMongo();
 
