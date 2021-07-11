@@ -67,28 +67,30 @@ export class Logger {
         const timestamp = generateTimestamp();
         const logLevel = logLevelStrings[level];
         if (this.loggerIsInit) {
-            console.log(`${bold(timestamp)} -- ${colorFct(logLevel)} -- ${colorFct(serviceName)} -- ${message}`);
+            // save log to file or db
             const fileLine = `${timestamp} -- ${logLevel} -- ${serviceName} -- ${message}`;
             MongoClientWrapper.isConnected && level >= this.minLogLevel ? void writeToDB(timestamp, logLevel, serviceName, message) : writeToFile(fileLine);
         } else {
-            console.log(`${bold(timestamp)} -- ${red('ERROR')} -- ${red(serviceName)} -- no logger is initialized!`);
+            console.log(`${bold(timestamp)} -- ${green('INFO')} -- ${red(serviceName)} -- no logger is initialized! Cannot log to db or file`);
         }
+        // log message anyway
+        console.log(`${bold(timestamp)} -- ${colorFct(logLevel)} -- ${colorFct(serviceName)} -- ${message}`);
 
     }
 
-    public static info(serviceName: string, message: string) {
+    public static info(serviceName: string, message: string): void {
         this.log(LogLevel.INFO, green, basename(serviceName), message);
     }
 
-    public static debug(serviceName: string, message: string) {
+    public static debug(serviceName: string, message: string): void {
         this.log(LogLevel.DEBUG, cyan, basename(serviceName), message);
     }
 
-    public static error(serviceName: string, message: string) {
+    public static error(serviceName: string, message: string): void {
         this.log(LogLevel.ERROR, red, basename(serviceName), message);
     }
 
-    public static startup(serviceName: string, message: string) {
+    public static startup(serviceName: string, message: string): void {
         this.log(LogLevel.STARTUP, yellow, basename(serviceName), message);
     }
 }
