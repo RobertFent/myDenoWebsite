@@ -25,3 +25,8 @@
 - add linting rules when possible
 - use own mongo client to prevent using permissions (maybe)
 - maybe use import map when this feature is stable
+
+### run tests
+```
+deno test --unstable --allow-all
+```
