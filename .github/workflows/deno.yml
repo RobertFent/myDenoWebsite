@@ -1,15 +1,50 @@
-name: Deno CI
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will install Deno and run tests across stable builds Ubuntu.
+# For more information see: https://github.com/denoland/setup-deno
+
+name: Deno
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [develop, master]
   pull_request:
-    branches: [ develop, master ]
+    branches: [develop, master]
 
 jobs:
-  run-server:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ${{ matrix.os }} # runs a test on Ubuntu, Windows and macOS
+
+    # only use one version on ubuntu but let strategy be there for maybe later changes
+    strategy:
+      matrix:
+        deno: ["v1.11.3"]
+        os: [ubuntu-latest]
+
     steps:
-    - uses: actions/checkout@v2
-    - name: launch server
-      run: ./scripts/launch_website.sh
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }} # tests across multiple Deno versions
+
+      # Uncomment this step to verify the use of 'deno fmt' on each commit.
+      # - name: Verify formatting
+      #   run: deno fmt --check
+
+      - name: Run linter
+        run: deno lint --ignore=frontend/
+
+      - name: Cache dependencies
+        run: ./scripts/cache.sh -t
+
+      - name: Launch server
+        run: ./scripts/launch_website.sh
+
+      - name: Run tests
+        run: deno test -A --unstable
