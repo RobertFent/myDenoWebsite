@@ -6,6 +6,7 @@ import { decode } from "../deps.ts";
 // todo doesn't seem to work
 // const env = dotenv();
 
+// server must run on port below
 Deno.test('Server reachable on address `http://0.0.0.0:8071`', async () => {
     // todo
     // const url = `http://${env.hostname}:${env.port}`
