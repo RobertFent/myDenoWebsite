@@ -15,7 +15,7 @@ on:
     branches: [develop, master]
 
 jobs:
-  build:
+  launch-server:
     runs-on: ${{ matrix.os }} # runs build on Ubuntu
 
     # only use one version on ubuntu but let strategy be there for maybe later changes
@@ -43,29 +43,13 @@ jobs:
       - name: Cache dependencies
         run: ./scripts/cache.sh -t
 
-      - run: cd /home
-      - run: ls -a
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: cache-deps
-          path: $HOME/.cache/deno/deps/
-
-  launch-server:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: cache-deps
-          path: $HOME/.cache/deno
-
       - name: Launch server
         run: ./scripts/launch_website.sh
+
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: cache-deps
+      #     path: $HOME/.cache/deno/deps/
 
   tests:
     needs: launch-server
