@@ -47,7 +47,7 @@ jobs:
         run: ./scripts/cache.sh -t
 
       - name: Launch server
-        run: ./scripts/launch_website.sh
+        run: ./scripts/launch_website.sh &
 
       # - uses: actions/upload-artifact@v2
       #   with:
