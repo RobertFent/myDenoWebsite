@@ -9,3 +9,5 @@ export { viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/v
 export { basename } from 'https://deno.land/std@0.75.0/path/mod.ts';
 export { format } from "https://deno.land/std@0.83.0/datetime/mod.ts";
 export { ensureDir } from "https://deno.land/std@0.100.0/fs/mod.ts";
+export { assertEquals, assertExists } from "https://deno.land/std@0.100.0/testing/asserts.ts";
+export { decode } from "https://deno.land/std@0.63.0/encoding/utf8.ts";
