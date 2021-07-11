@@ -33,6 +33,9 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }} # setup deno with given version
 
+      - name: Setup .env
+        run: cp ./example_envs/.env_mongo_network .env
+
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting
       #   run: deno fmt --check
@@ -55,9 +58,19 @@ jobs:
     needs: launch-server
     runs-on: ubuntu-latest
 
+    # only use one version on ubuntu but let strategy be there for maybe later changes
+    strategy:
+      matrix:
+        deno: ["v1.11.3"]
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }} # setup deno with given version
       
       - name: Run tests
         run: deno test -A --unstable
