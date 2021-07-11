@@ -1,0 +1,15 @@
+name: Deno CI
+
+on:
+  push:
+    branches: [ develop, master ]
+  pull_request:
+    branches: [ develop, master ]
+
+jobs:
+  run-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: launch server
+      run: ./scripts/launch_website.sh
