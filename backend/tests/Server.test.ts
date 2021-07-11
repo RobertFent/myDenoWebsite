@@ -1,4 +1,4 @@
-import { assertEquals, assertExists } from '../deps.ts';
+import { assertExists } from '../deps.ts';
 import { decode } from "../deps.ts";
 // import { dotenv } from "../src/utils/dotenv.parser.ts";
 
