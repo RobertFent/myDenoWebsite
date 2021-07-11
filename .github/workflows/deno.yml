@@ -43,8 +43,7 @@ jobs:
       - name: Cache dependencies
         run: ./scripts/cache.sh -t
 
-      - run: echo $HOME
-      - run: cd $HOME
+      - run: cd /home
       - run: ls -a
 
       - uses: actions/upload-artifact@v2
