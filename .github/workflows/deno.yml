@@ -33,7 +33,6 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }} # setup deno with given version
 
-      # todo use ci instead of dev .env
       - name: Setup .env
         run: cp ./example_envs/.env_default_ci .env
 
@@ -48,7 +47,7 @@ jobs:
       
         # use '&' to detach process and go on
       - name: Launch server
-        run: ./scripts/launch_website.sh
+        run: ./scripts/launch_website.sh &
 
       - name: Wait 10 secs for server startup
         run: sleep 10
