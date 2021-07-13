@@ -65,5 +65,8 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - name: launch website in docker and run tests
         uses: ./.github/actions/deno_docker
