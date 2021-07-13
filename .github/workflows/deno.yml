@@ -15,7 +15,7 @@ on:
     branches: [develop, master]
 
 jobs:
-  launch-server:
+  launch and test website:
     runs-on: ${{ matrix.os }} # runs build on Ubuntu
 
     # only use one version on ubuntu but let strategy be there for maybe later changes
@@ -33,12 +33,9 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }} # setup deno with given version
 
+      # todo use ci instead of dev .env
       - name: Setup .env
-        run: cp ./example_envs/.env_mongo_network .env
-
-      # Uncomment this step to verify the use of 'deno fmt' on each commit.
-      # - name: Verify formatting
-      #   run: deno fmt --check
+        run: cp ./example_envs/.env_mongo_network_dev .env
 
       - name: Run linter
         run: deno lint --ignore=frontend/
@@ -49,28 +46,8 @@ jobs:
       - name: Launch server
         run: ./scripts/launch_website.sh &
 
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cache-deps
-      #     path: $HOME/.cache/deno/deps/
+      - name: Wait 10 secs
+        run: sleep 10
 
-  tests:
-    needs: launch-server
-    runs-on: ubuntu-latest
-
-    # only use one version on ubuntu but let strategy be there for maybe later changes
-    strategy:
-      matrix:
-        deno: ["v1.11.3"]
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: ${{ matrix.deno }} # setup deno with given version
-      
       - name: Run tests
-        run: deno test -A --unstable
+        run: deno test --unstable --allow-all
