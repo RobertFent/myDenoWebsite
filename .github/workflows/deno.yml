@@ -49,8 +49,8 @@ jobs:
       - name: Launch server
         run: ./scripts/launch_website.sh &
 
-      - name: Wait 5 secs for server startup
-        run: sleep 5
+      - name: Wait 10 secs for server startup
+        run: sleep 10
 
       - name: Run tests
         run: deno test --unstable --allow-all
