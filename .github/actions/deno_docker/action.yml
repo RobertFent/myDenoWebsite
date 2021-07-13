@@ -1,0 +1,7 @@
+name: "launch website and run tests"
+
+description: "launches deno website in docker and runs tests afterwards"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
