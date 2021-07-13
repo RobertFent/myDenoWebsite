@@ -43,10 +43,14 @@ jobs:
       - name: Cache dependencies
         run: ./scripts/cache.sh -t
 
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+      
+        # use '&' to detach process and go on
       - name: Launch server
-        run: ./scripts/launch_website.sh &
+        run: ./scripts/launch_website.sh
 
-      - name: Wait 10 secs
+      - name: Wait 10 secs for server startup
         run: sleep 10
 
       - name: Run tests
