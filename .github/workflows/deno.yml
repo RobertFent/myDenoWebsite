@@ -34,7 +34,7 @@ jobs:
           deno-version: ${{ matrix.deno }} # setup deno with given version
 
       - name: Setup .env
-        run: cp ./example_envs/.env_default_ci .env
+        run: cp ./example_envs/.env_ci .env
 
       - name: Run linter
         run: deno lint --ignore=frontend/
