@@ -45,9 +45,9 @@ jobs:
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.6.0
       
-        # use '&' to detach process and go on, wait 5 secs to see init logs
+        # use '&' to detach process and go on
       - name: Launch server
-        run: ./scripts/launch_website.sh && sleep 5 &
+        run: ./scripts/launch_website.sh &
 
       - name: Wait 5 secs for server startup
         run: sleep 5
