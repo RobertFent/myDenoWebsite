@@ -15,7 +15,7 @@ on:
     branches: [develop, master]
 
 jobs:
-  launch-and-test-website.local:
+  launch-and-test-website-local:
     runs-on: ${{ matrix.os }} # runs build on Ubuntu
 
     # only use one version on ubuntu but let strategy be there for maybe later changes
