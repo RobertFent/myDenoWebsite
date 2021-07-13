@@ -35,7 +35,7 @@ jobs:
 
       # todo use ci instead of dev .env
       - name: Setup .env
-        run: cp ./example_envs/.env_default_dev .env
+        run: cp ./example_envs/.env_default_ci .env
 
       - name: Run linter
         run: deno lint --ignore=frontend/
