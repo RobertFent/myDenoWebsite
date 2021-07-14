@@ -4,7 +4,8 @@ services:
   my-deno-website:
     image: robertfent1/deno-website:latest
     container_name: my-deno-website
-    # network_mode: "host"
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
 
 volumes:
   mongodb:
