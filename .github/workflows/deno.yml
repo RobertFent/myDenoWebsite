@@ -68,8 +68,28 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno }} # setup deno with given version
+      
+      - name: Setup .env
+        run: cp ./example_envs/.env_ci .env
+
+      - name: Printenv
+        run: printenv
+
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
 
-      - name: launch website in docker and run tests
-        uses: ./.github/actions/deno_docker
+      - name: Launch Website
+        run: docker-compose -f ./docker/docker-compose_deno.yml up -d
+
+      - name: Wait 10 secs for server startup
+        run: sleep 10
+
+      - name: Run tests
+        run: deno test --unstable --allow-all
+
+      # - name: launch website in docker and run tests
+      #   uses: ./.github/actions/deno_docker
