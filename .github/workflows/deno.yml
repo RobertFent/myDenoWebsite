@@ -75,15 +75,17 @@ jobs:
       
       - name: Setup .env
         run: cp ./example_envs/.env_ci .env
-
-      - name: Printenv
-        run: printenv
+      
+      - name: Load .env
+        uses: c-py/action-dotenv-to-setenv@v3
+        with:
+          env-file: .env
 
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
 
       - name: Launch Website
-        run: docker-compose -f ./docker/docker-compose_deno.yml up -d
+        run: docker-compose -f ./docker/docker-compose_deno.yml up
 
       - name: Wait 10 secs for server startup
         run: sleep 10
