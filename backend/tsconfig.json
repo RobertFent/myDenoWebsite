@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
       "importsNotUsedAsValues": "remove",
-      "isolatedModules": false,
-      "module": "es2020"
     }
 }
