@@ -74,7 +74,7 @@ jobs:
           deno-version: ${{ matrix.deno }} # setup deno with given version
       
       - name: Setup .env
-        run: cp ./example_envs/.env_defaul_ci .env
+        run: cp ./example_envs/.env_default_ci .env
       
       - name: Load .env
         uses: c-py/action-dotenv-to-setenv@v3
