@@ -81,8 +81,8 @@ jobs:
         with:
           env-file: .env
 
-      - name: Printenv
-        run: printenv
+      - name: Build docker image
+        run: docker build -t robertfent1/deno-website:ci -f docker/Dockerfile .
 
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
