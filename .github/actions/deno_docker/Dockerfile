@@ -1,3 +1,5 @@
 FROM robertfent1/deno-website:dev
 
-CMD [ "deno", "test", "-A", "--unstable" ]
+COPY entrypoint.sh ./
+
+CMD ["/bin/bash", "./entrypoint.sh"]
