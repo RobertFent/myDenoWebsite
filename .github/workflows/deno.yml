@@ -81,11 +81,14 @@ jobs:
         with:
           env-file: .env
 
+      - name: Printenv
+        run: printenv
+
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
 
       - name: Launch Website
-        run: docker-compose -f ./docker/docker-compose_deno.yml up
+        run: docker-compose -f ./docker/docker-compose_deno.yml up -d
 
       - name: Wait 10 secs for server startup
         run: sleep 10
