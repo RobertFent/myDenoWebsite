@@ -127,7 +127,7 @@ jobs:
 
       # todo maybe use build from job before
       - name: Build docker image
-        run: docker build -t robertfent1/deno-website:dev -f docker/Dockerfile .
+        run: docker build -t robertfent1/deno-website:ci -f docker/Dockerfile .
 
       - name: Push docker image
-        run: docker push robertfent1/deno-website:dev
+        run: docker push robertfent1/deno-website:ci
