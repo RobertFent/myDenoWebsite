@@ -112,7 +112,7 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${{ $TAG }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${{ env.TAG }}
 
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
@@ -169,4 +169,4 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${TAG}"
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${{ env.TAG }}
