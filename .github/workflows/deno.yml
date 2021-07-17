@@ -97,11 +97,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      #- name: Set tag env
-      #  run: echo "TAG=$(echo $TAG)" >> $GITHUB_ENV
+      - name: Set tag env
+        run: echo "TAG=$(echo $TAG)" >> $GITHUB_ENV
 
-      #- name: Test env
-      #  run: echo {{ env.TAG }}
+      - name: Test env
+        run: echo {{ env.TAG }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -112,7 +112,7 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:$(echo $TAG)
+          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:$(echo $TAG)"
 
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
