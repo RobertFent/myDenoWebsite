@@ -100,7 +100,6 @@ jobs:
       - name: Echo env
         run: |
         echo "${HOME}"
-        echo "$HOME"
         echo ${HOME}
 
       - name: Build and push
