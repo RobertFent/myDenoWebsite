@@ -98,9 +98,10 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Echo env
-        run: |
-        echo "${HOME}" >> $GITHUB_ENV
-        echo $HOME
+        run: echo "${TAG}" >> $GITHUB_ENV
+
+      - name: Test env
+        run: echo {{ env.TAG }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -111,7 +112,7 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${TAG}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:$TAG
 
       - name: Start MongoDB
         run: docker-compose -f ./docker/docker-compose_db.yml up -d
@@ -168,4 +169,4 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:${TAG}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:$TAG
