@@ -164,4 +164,4 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:ci
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/deno-website:$TAG
