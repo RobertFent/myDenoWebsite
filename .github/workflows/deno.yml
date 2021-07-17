@@ -99,8 +99,8 @@ jobs:
 
       - name: Echo env
         run: |
-        echo "${HOME}"
-        echo ${HOME}
+        echo "${HOME}" >> $GITHUB_ENV
+        echo $HOME
 
       - name: Build and push
         uses: docker/build-push-action@v2
