@@ -97,11 +97,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      #- name: Echo env
-      #  run: echo "${TAG}" >> $GITHUB_ENV
+      - name: Set tag env
+        run: echo "TAG=$(echo $TAG)" >> $GITHUB_ENV
 
-      #- name: Test env
-      #  run: echo {{ env.TAG }}
+      - name: Test env
+        run: echo {{ env.TAG }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
