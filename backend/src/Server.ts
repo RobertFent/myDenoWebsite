@@ -18,9 +18,9 @@ const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAUL
 const usesAtlas = Boolean(Number(env.MONGO_ATLAS)) || MONGO_ATLAS;
 
 // export this const to use it in controller
-export const versionTag = env.VERSION || VERSION_TAG;
+export let versionTag = env.VERSION || VERSION_TAG;
 // append tag if exists
-if (env.TAG) versionTag.concat(`-${env.TAG}`)
+if (env.TAG) versionTag += `-${env.TAG}`;
 
 
 // deno-lint-ignore no-explicit-any
