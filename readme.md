@@ -44,8 +44,6 @@ mongodb://admin:admin@{ip}:27017
 ## todo
 - proper secrets
 - remove mongo atlas stuff
-- version tags generic
-- cd: (:latest -> on master push, :dev -> on develop push)
 
 ### run tests from root
 ```./scripts/launch_website.sh & sleep 10 && deno test --unstable --allow-all```
