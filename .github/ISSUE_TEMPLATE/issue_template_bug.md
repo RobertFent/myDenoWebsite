@@ -1,8 +1,9 @@
 ---
-NAME: Bug Report 🐞
-TITLE: ''
-LABELS: ''
-ASSIGNEE: ''
+name: Bug Report 🐞
+about: Create a report to help us improve.
+title: ''
+labels: ''
+assignees: ''
 ---
 
 
