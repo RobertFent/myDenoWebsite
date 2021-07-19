@@ -1,8 +1,9 @@
 ---
-NAME: Feature Request 💡
-TITLE: ''
-LABELS: ''
-ASSIGNEE: ''
+name: Feature Request 💡
+about: Suggest a new idea for the project.
+title: ''
+labels: ''
+assignees: ''
 ---
 
 
