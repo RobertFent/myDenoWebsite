@@ -20,7 +20,7 @@ const writeToFile = (line: string): void => {
         Deno.writeTextFileSync(`./logs/log_${currentDay}.txt`, `${line}\n`, { append: true });
     } catch (error) {
         if (!(error instanceof Deno.errors.NotFound)) {
-            Logger.error('Logger', `Error writing logs! ${error}`);
+            console.log(`Error writing logs! ${error}`);
         } else {
             // should never happen
             console.log('Log folder not found! Check if it is created!');
