@@ -70,6 +70,7 @@ const initMongo = (): void => {
 *   heapUsed: size of heap that is actually used
 *   external: memory usage of C++ objects bound to JS objects managed by V()
 */
+// deno-lint-ignore no-unused-vars
 const logMemoryUsage = (): void => {
     void setInterval(() => {
         const memUsage = Deno.memoryUsage();
@@ -89,7 +90,7 @@ export const run = async (): Promise<void> => {
         Logger.startup(import.meta.url, `Current version: ${versionTag}`);
 
         // start mem usage logger
-        logMemoryUsage();
+        // logMemoryUsage();
 
         // init application
         const app = setupApp();
