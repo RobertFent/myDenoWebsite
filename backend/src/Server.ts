@@ -2,7 +2,7 @@ import { Application } from "../deps.ts";
 import { MongoClientWrapper } from "./utils/mongoClientWrapper.ts";
 import router from "./routers/router.ts";
 import { errorHandler, requestLogger, staticFileHandler, viewEngineSetter } from "./middlewares/middleware.ts";
-import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, MONGO_ATLAS, DEFAULT_LOG_LEVEL, VERSION_TAG } from "./utils/constants.ts";
+import { SERVER_PORT, CONNECTION_STRING, DEFAULT_DB, HOST_NAME, DEFAULT_LOG_LEVEL, VERSION_TAG } from "./utils/constants.ts";
 import { dotenv } from './utils/dotenv.parser.ts';
 import { Logger, LogLevel } from "./utils/logger.ts";
 
@@ -14,8 +14,6 @@ const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
 const database = env.DATABASE || DEFAULT_DB;
 // deno-lint-ignore no-explicit-any
 const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAULT_LOG_LEVEL;
-// without casting to number first value is always true
-const usesAtlas = Boolean(Number(env.MONGO_ATLAS)) || MONGO_ATLAS;
 
 // export this const to use it in controller
 export let versionTag = env.VERSION || VERSION_TAG;
@@ -59,7 +57,7 @@ const setupApp = (): Application<Record<string, any>> => {
 };
 
 const initMongo = (): void => {
-    void MongoClientWrapper.initMongoClient(connectionString, database, usesAtlas);
+    void MongoClientWrapper.initMongoClient(connectionString, database);
 };
 
 /*
