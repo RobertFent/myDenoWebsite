@@ -16,10 +16,10 @@ if [[ "$PWD" =~ $REGEX ]]; then
 
     # set proper .env
     if [[ "$MODE" == 1 ]]; then
-        mv example_envs/.env_mongo_network .env
+        cp example_envs/.env_mongo_network .env
     elif [[ "$MODE" == 2 ]]; then
-        mv example_envs/.env_mongo_network_ci .env
-    else mv example_envs/.env_mongo_network_dev .env
+        cp example_envs/.env_mongo_network_ci .env
+    else cp example_envs/.env_mongo_network_dev .env
     fi
 
     # args for caching

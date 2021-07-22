@@ -38,7 +38,7 @@ const setupApp = (): Application<Record<string, any>> => {
     // app.use(cookieUser);
 
     app.use(viewEngineSetter());
-    
+
     // init routes and its methods
     app.use(router.routes());
     app.use(router.allowedMethods());
@@ -62,12 +62,36 @@ const initMongo = (): void => {
     void MongoClientWrapper.initMongoClient(connectionString, database, usesAtlas);
 };
 
+/*
+*   this function logs the mem usage every 10 minutes
+*
+*   rss: resident set size -> amount of space occupied in main memory device (process memory held in RAM)
+*   heapTotal: size of allocated total heap
+*   heapUsed: size of heap that is actually used
+*   external: memory usage of C++ objects bound to JS objects managed by V()
+*/
+// deno-lint-ignore no-unused-vars
+const logMemoryUsage = (): void => {
+    void setInterval(() => {
+        const memUsage = Deno.memoryUsage();
+        Object.keys(memUsage).forEach((type, bytes) => {
+            // convert bytes to MiB
+            memUsage[type as keyof Deno.MemoryUsage] = bytes * 9,5367e-7
+        });
+        Logger.debug(import.meta.url, `Memory usage in MiB: ${JSON.stringify(memUsage)}`);
+    // log mem usage every 10 minutes
+    }, 600000);
+}
+
 export const run = async (): Promise<void> => {
     try {
         // init logger
         Logger.init(logLevel);
         Logger.startup(import.meta.url, `Current version: ${versionTag}`);
-        
+
+        // start mem usage logger
+        // logMemoryUsage();
+
         // init application
         const app = setupApp();
         initMongo();
