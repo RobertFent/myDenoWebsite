@@ -1,9 +1,12 @@
 FROM denoland/deno:alpine-1.12.0
 
-# install deps and let user deno own this app
-RUN apk update && apk add --no-cache bash && chown -R deno:deno /app
+# install deps
+RUN apk update && apk add --no-cache bash
 
 WORKDIR /app
+
+# let user deno own this app
+RUN chown -R deno:deno /app
 
 # Prefer not to run as root
 USER deno
