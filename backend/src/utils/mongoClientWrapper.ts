@@ -22,9 +22,8 @@ export class MongoClientWrapper {
     private static async tryConnectUntilSuccess(uri: string, usesAtlas: boolean): Promise<void> {
         let retries = 0;
         await new Promise<void>((res, rej) => {
+            Logger.startup(import.meta.url, `Starting connection interval with URI: ${uri}`);
             const connectionInterval = setInterval(async () => {
-                Logger.startup(import.meta.url, `Currently in connection interval; URI: ${uri}`);
-
                 // decide to connect with atlas or not
                 try {
                     const db = usesAtlas ? await this.mClient.connect({
