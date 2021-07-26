@@ -59,7 +59,12 @@ main {
     padding-bottom: 0.5%;
     padding-top: 0.5%;
 }
-/* make footer sticky */
+
+/* footer stuff*/
+.versionTag {
+    padding-left: 5vw;
+    padding-top: 2vh;
+}
 
 /* style for main content of home page */
 
