@@ -8,22 +8,22 @@
 <!--class="grey darken-4"-->
 
 <body>
-    <header>
+    <header class="top-section">
         <%- include("../partials/header.ejs") %>
     </header>
-    <main>
+    <main class="mid-section">
         <div class="intro deep-orange accent-2 z-depth-1">
             <h1 class="grey-text text-lighten-3">Robert Fent</h1>
             <h5 class="grey lighten-3 grey-text text-darken-4">web developer and computer science student</h5>
         </div>
-        <div class="container about">
+        <div class="about">
             <h5>about this website and me</h5>
             <hr>
-            <div class="row">
-                <div class="col s12 m4 l4">
+            <div class="row about-content">
+                <div class="col s12 m4 l4 about-row">
                     <h6>Hello from Deno!</h6>
-                    <div class="website-description">
-                        <img src="./assets/deno_logo.svg" width="150" />
+                    <img src="./assets/deno_logo.svg" width="150"/>
+                    <div class="website-description">    
                         <p>
                             The backend of this website is written in <a href="https://deno.land/">Deno</a>.
                             This is a JavaScript runtime with built-in TypeScript support using <a href="https://v8.dev/">V8</a>.
@@ -52,11 +52,15 @@
                             This application listens for new builds, pulls them and recreates the container running the build if a new build is released.
                         </p>
                         <p>
-                            The newest release of the :dev tag runs <a href="https://dev-website.robertfent.dev/">here</a> while the newest :latest release is the current website.
+                            The newest release of the :dev tag runs <a href="https://dev-website.robertfent.dev/">here</a> while the newest :latest release runs <a href="https://website.robertfent.dev/">here</a>.
+                            While a pull request into develop is open in my GitHub <a href="https://github.com/RobertFent/myDenoWebsite">repo</a> the current state is released under the :ci tag <a href="https://ci-website.robertfent.dev/">here</a>
+                        </p>
+                        <p>
+                            tbd DevOps (GitHub workflow, issues, pr)
                         </p>
                     </div>
                 </div>
-                <div class="col s12 m4 l4">
+                <div class="col s12 m4 l4 about-row">
                     <h6>profile</h6>
                     <div class="profile card deep-orange accent-2 z-depth-1">
                         <div class="card-content white-text">
@@ -83,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m4 l4">
+                <div class="col s12 m4 l4 about-row">
                     <h6>my story</h6>
                     <div class="story">
                         <p class="h7">Background</p>
@@ -105,7 +109,7 @@
             <h6>Don't forget to check out the <a href="/visitors_book">visitors book</a></h6>
         </div>
     </main>
-    <footer>
+    <footer class="bot-section">
         <%- include("../partials/footer.ejs") %>
     </footer>
 </body>

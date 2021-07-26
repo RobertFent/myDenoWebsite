@@ -1,6 +1,6 @@
 body {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     flex-direction: column;
 }
 
@@ -8,33 +8,69 @@ main {
     flex: 1 0 auto;
 }
 
-.nav-header {
-    width: 100%;
-    height: auto;
+/* split website in three parts */
+.top-section {
+    width: 100vw;
+    height: 5vh;
+    top: 0;
+    position: fixed;
+}
+
+.mid-section {
+    margin-top: 5vh;
+    height: 90vh;
+    width: 100vw;
+}
+
+.bot-section {
+    height: 5vh;
+    width: 100vw;
+}
+
+/* make sure top sections stays 5vh and image fits as expected */
+.top-section nav {
+    height: inherit;
 }
 
 .nav-header img {
-    height: 100%;
+    height: inherit;
     width: auto;
     object-fit: contain;
+    padding-right: 1%;
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
 }
 
-.footer {
-    flex-shrink: 0;
-}
-
+/* Robert Fent card */
 .intro {
     text-align: center;
     padding-top: 1%;
     padding-bottom: 2%;
     margin-bottom: 30px;
+    height: 20vh;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .intro h5 {
     text-transform: uppercase;
-    padding: 10px;
-    display: inline-block;
+    padding: 0.5%;
     font-size: 1.2em;
+}
+
+.about {
+    margin: 0 auto;
+    width: 90vw;
+    height: 60vh;
+}
+
+.about-row {
+    display: block;
+    height: inherit;
+    text-align: center;
 }
 
 .about h5 {
@@ -65,11 +101,22 @@ main {
     margin-bottom: 1%;
 }
 
-.about .website-description {
-    text-align: center;
+.about-content {
+    height: inherit;
 }
 
-.about .profile {
+.website-description {
+    height: 70%;
+    text-align: center;
+    overflow: scroll;
+}
+
+.story {
+    height: inherit;
+}
+
+.profile {
+    height: 80%;
     text-align: center;
 }
 
