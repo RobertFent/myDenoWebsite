@@ -12,19 +12,22 @@ main {
 .top-section {
     width: 100vw;
     height: 5vh;
-    top: 0;
+    top: 0; /* set top to 0 and pos to fixed to make top section sticky */
     position: fixed;
 }
 
 .mid-section {
-    margin-top: 5vh;
+    margin-top: 5vh; /* margin 5 to not overlap with top 0 content */
     height: 90vh;
     width: 100vw;
+    margin-bottom: 5vh; /* margin 5 to not overlap with bot 0 content */
 }
 
 .bot-section {
     height: 5vh;
     width: 100vw;
+    bottom: 0; /* set bot to 0 and pos to fixed to make bot section sticky */
+    position: fixed;
 }
 
 /* make sure top sections stays 5vh and image fits as expected */
@@ -32,24 +35,42 @@ main {
     height: inherit;
 }
 
+/* ul stuff below to center text in navbar -> probably dumb way to do so */
+.nav-header ul {
+    height: inherit;
+}
+
+.nav-header ul li {
+    display: table;
+    height: inherit;
+}
+
+.nav-header ul li a {
+    height: inherit;
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .nav-header img {
     height: inherit;
     width: auto;
     object-fit: contain;
-    padding-right: 1%;
+    padding-right: 1%; /* pad image nicely */
     padding-bottom: 0.5%;
     padding-top: 0.5%;
 }
+/* make footer sticky */
+
+/* style for main content of home page */
 
 /* Robert Fent card */
 .intro {
     text-align: center;
     padding-top: 1%;
     padding-bottom: 2%;
-    margin-bottom: 30px;
     height: 20vh;
 
-    display:flex;
+    display: flex; /* use flexbox to center content nicely */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -85,6 +106,7 @@ main {
     margin-bottom: 1%;
 }
 
+/* define own h7 */
 .h7 { 
     display: block;
     font-size: .64em;
@@ -105,10 +127,12 @@ main {
     height: inherit;
 }
 
+/* make content scrollable */
 .website-description {
     height: 70%;
     text-align: center;
     overflow: scroll;
+    overflow-x: hidden; /* hide bottom scrollbar*/
 }
 
 .story {
@@ -120,11 +144,22 @@ main {
     text-align: center;
 }
 
+/* style for elements in visitors book below */
+/* card for header */
+.header-card {
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    height: 15vh;
+}
+
+/* card for user input */
 .form_card {
     margin-left: 20%;
     margin-right: 20%;
 }
 
+/* display form card properly on mobile phones */
 @media screen and (max-width: 600px) {
     .form_card {
         margin-left: 5%;
@@ -132,7 +167,13 @@ main {
     }
 }
 
-.visitor_book_head h5{
+/* wrapper element for main content of visitor book site */
+.visitors-book {
+    height: 70vh;
+    width: inherit;
+}
+
+.visitor-book-head h5{
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 1%;
@@ -144,16 +185,70 @@ main {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .visitor-table thead, .visitor-table tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
-/*
-.visitor-table thead {
-    width: calc( 100% - 1em )
-}
-*/
+
 .visitor-table table {
-    width:100%;
+    width: 100%;
+}
+
+/* style for elements in privacy content below */
+.privacy-content {
+    height: inherit;
+    width: inherit;
+    overflow-x: scroll;
+    overflow-x: hidden;
+    padding: 10%;
+    padding-top: 0;
+}
+
+/* change style of scrollbars */
+/* width */
+::-webkit-scrollbar {
+    width: 0.33vw;
+    height: 5vh;
+}
+
+/* draggable handle */
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+}
+
+
+/* overwrite some values on screens with less then 1080px height (full hd) */
+@media screen and (max-height: 1080px) {
+
+    /* make nav bar a little bit greater on smaller monitors*/
+    .top-section {
+        width: 100vw;
+        height: 7vh;
+        top: 0; /* set top to 0 and pos to fixed to make top section sticky */
+        position: fixed;
+    }
+
+    .mid-section {
+        margin-top: 7vh; /* margin 5 to not overlap with top 0 content */
+        height: 88vh;
+        width: 100vw;
+    }
+
+    /* make intro card little bit smaller and lower size of h1 and h5 */
+    .intro {
+        height: 15vh;
+    }
+
+    .intro h1 {
+        font-size: 3em;
+    }
+
+    .intro h5 {
+        padding: 0.25%;
+        font-size: 1em;
+    }
 }
