@@ -22,38 +22,57 @@
             <div class="row about-content">
                 <div class="col s12 m4 l4 about-row">
                     <h6>Hello from Deno!</h6>
-                    <img src="./assets/deno_logo.svg" width="150"/>
-                    <div class="website-description">    
+                    <img src="./assets/deno_logo.svg" width="150" />
+                    <div class="website-description">
                         <p>
                             The backend of this website is written in <a href="https://deno.land/">Deno</a>.
-                            This is a JavaScript runtime with built-in TypeScript support using <a href="https://v8.dev/">V8</a>.
-                            Deno is built in Rust and was created by Ryan Dahl (the former creator of <a href="https://nodejs.org/en/">NodeJS</a>).
+                            This is a JavaScript runtime with built-in TypeScript support using <a
+                                href="https://v8.dev/">V8</a>.
+                            Deno is built in Rust and was created by Ryan Dahl (the former creator of <a
+                                href="https://nodejs.org/en/">NodeJS</a>).
                         </p>
                         <p>
-                            The frontend is written in <a href="https://ejs.co/">EJS</a>. It's a simple templating langague where you can generate HTML with JavaScript.
+                            The frontend is written in <a href="https://ejs.co/">EJS</a>. It's a simple templating
+                            langague where you can generate HTML with JavaScript.
                             The HTML is then rendered by an ejs render engine in Deno.
                         </p>
                         <p>
-                            To save the entries in the visitors book the backend is using a <a href="https://www.mongodb.com/">MongoDB</a>.
+                            To save the entries in the visitors book the backend is using a <a
+                                href="https://www.mongodb.com/">MongoDB</a>.
                         </p>
                         <p>
-                            The Deno application and the database run both in separate <a href="https://www.docker.com/">docker</a> containers to make the setup as simple and fast as possible on multiple different architectures.
+                            The Deno application and the database run both in separate <a
+                                href="https://www.docker.com/">docker</a> containers to make the setup as simple and
+                            fast as possible on multiple different architectures.
                         </p>
                         <p>
-                            This website runs on my VPS which is based in Frankfurt and is exposed by <a href="https://doc.traefik.io/">Traefik</a>, a reverse proxy and load balancer for a easy deployment of microservices.
+                            This website runs on my VPS which is based in Frankfurt and is exposed by <a
+                                href="https://doc.traefik.io/">Traefik</a>, a reverse proxy and load balancer for a easy
+                            deployment of microservices.
                         </p>
                         <p>
-                            For automation and testing purposes the website works with a ci/cd pipeline. This pipeline is realized with <a href="https://docs.github.com/en/actions">GitHub Actions</a>.
-                            Everytime a pull requested is created or changes to a pull request are pushed, the pipeline runs and after successful tests a new ci build os pushed to <a href="https://hub.docker.com/">Dockerhub</a>.
-                            Merging a PR into the develop branch leads to a new build of the website and pushing this build with the tag :dev while merging a PR into the master branch leads to the same except that the build is pushed with the tag :latest.
+                            For automation and testing purposes the website works with a ci/cd pipeline. This pipeline
+                            is realized with <a href="https://docs.github.com/en/actions">GitHub Actions</a>.
+                            Everytime a pull requested is created or changes to a pull request are pushed, the pipeline
+                            runs and after successful tests a new ci build os pushed to <a
+                                href="https://hub.docker.com/">Dockerhub</a>.
+                            Merging a PR into the develop branch leads to a new build of the website and pushing this
+                            build with the tag :dev while merging a PR into the master branch leads to the same except
+                            that the build is pushed with the tag :latest.
                         </p>
                         <p>
-                            To detect new builds of the website, on my server runs an application in docker called <a href="https://github.com/containrrr/watchtower">watchtower</a>.
-                            This application listens for new builds, pulls them and recreates the container running the build if a new build is released.
+                            To detect new builds of the website, on my server runs an application in docker called <a
+                                href="https://github.com/containrrr/watchtower">watchtower</a>.
+                            This application listens for new builds, pulls them and recreates the container running the
+                            build if a new build is released.
                         </p>
                         <p>
-                            The newest release of the :dev tag runs <a href="https://dev-website.robertfent.dev/">here</a> while the newest :latest release runs <a href="https://website.robertfent.dev/">here</a>.
-                            While a pull request into develop is open in my GitHub <a href="https://github.com/RobertFent/myDenoWebsite">repo</a> the current state is released under the :ci tag <a href="https://ci-website.robertfent.dev/">here</a>
+                            The newest release of the :dev tag runs <a
+                                href="https://dev-website.robertfent.dev/">here</a> while the newest :latest release
+                            runs <a href="https://website.robertfent.dev/">here</a>.
+                            While a pull request into develop is open in my GitHub <a
+                                href="https://github.com/RobertFent/myDenoWebsite">repo</a> the current state is
+                            released under the :ci tag <a href="https://ci-website.robertfent.dev/">here</a>
                         </p>
                         <p>
                             tbd DevOps (GitHub workflow, issues, pr)
@@ -61,29 +80,36 @@
                     </div>
                 </div>
                 <div class="col s12 m4 l4 about-row">
-                    <h6>profile</h6>
-                    <div class="profile card deep-orange accent-2 z-depth-1">
-                        <div class="card-content white-text">
-                            <img src="./assets/me.png" width="100">
-                            <table class="responsive-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>Robert</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Age</td>
-                                        <td>23</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Employment</td>
-                                        <td>Student</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-action">
-                            <a href="https://github.com/RobertFent">Check out my Github</a>
+                    <div class="centered-in-parent">
+                        <h5>profile</h5>
+                        <div class="profile card deep-orange accent-2 z-depth-1">
+
+                            <div class="card-content white-text">
+                                <img src="./assets/me.png" width="100">
+                                <table class="centered">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Robert</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Age</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Employment</td>
+                                            <td>Student</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hobbies</td>
+                                            <td>Bodybuilding, Coding, Cooking</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://github.com/RobertFent" class="indigo-text text-darken-3">Check out my Github</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,11 +118,16 @@
                     <div class="story">
                         <p class="h7">Background</p>
                         <p>
-                            Hello, my name is Robert. I am 23 years old and have a bachelor's degree in media informatics. This winter I will start the master in computer science.
+                            Hello, my name is Robert. I am 23 years old and have a bachelor's degree in media
+                            informatics. This winter I will start the master in computer science.
                         </p>
                         <p class="h7">IT Experience</p>
                         <p>
-                            tbd
+                            I worked for nearly two years as a full stack developer at the former startup DioVision Systems GmbH where we developed a time tracking tool for the pharma company Fresenius Kabi. 
+                        </p>
+                        <p>
+                            I am used to develop backends with TypeScript/Javascript in Node or Deno.
+                            I am also experienced in using the programming languages Java, C++, R and Python.
                         </p>
                         <p class="h7">Projects</p>
                         <p>

@@ -30,6 +30,8 @@ main {
     position: fixed;
 }
 
+/* header stuff */
+
 /* make sure top sections stays 5vh and image fits as expected */
 .top-section nav {
     height: inherit;
@@ -87,6 +89,7 @@ main {
     font-size: 1.2em;
 }
 
+/* main part of main page */
 .about {
     margin: 0 auto;
     width: 90vw;
@@ -132,7 +135,7 @@ main {
     height: inherit;
 }
 
-/* make content scrollable */
+/* left part with scrollable content */
 .website-description {
     height: 70%;
     text-align: center;
@@ -140,16 +143,32 @@ main {
     overflow-x: hidden; /* hide bottom scrollbar*/
 }
 
-.story {
-    height: inherit;
+/* middle part */
+
+/* wrapper class to center element vertically in its parent */
+.centered-in-parent {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile {
-    height: 80%;
+    width: 100%;
+    height: 90%;
     text-align: center;
 }
 
+/* right part */
+.story {
+    height: inherit;
+    padding-top: 5vh;
+}
+
 /* style for elements in visitors book below */
+
 /* card for header */
 .header-card {
     text-align: center;
@@ -159,14 +178,14 @@ main {
 }
 
 /* card for user input */
-.form_card {
+.form-card {
     margin-left: 20%;
     margin-right: 20%;
 }
 
 /* display form card properly on mobile phones */
 @media screen and (max-width: 600px) {
-    .form_card {
+    .form-card {
         margin-left: 5%;
         margin-right: 5%;
     }
