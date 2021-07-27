@@ -53,7 +53,8 @@
                         <p>
                             For automation and testing purposes the website works with a ci/cd pipeline. This pipeline
                             is realized with <a href="https://docs.github.com/en/actions">GitHub Actions</a>.
-                            Everytime a pull requested is created or changes to a pull request are pushed, the pipeline
+                            Everytime a <a href="https://github.com/RobertFent/myDenoWebsite/pulls">pull request</a> is
+                            created or changes to a pull request are pushed, the pipeline
                             runs and after successful tests a new ci build os pushed to <a
                                 href="https://hub.docker.com/">Dockerhub</a>.
                             Merging a PR into the develop branch leads to a new build of the website and pushing this
@@ -72,10 +73,20 @@
                             runs <a href="https://website.robertfent.dev/">here</a>.
                             While a pull request into develop is open in my GitHub <a
                                 href="https://github.com/RobertFent/myDenoWebsite">repo</a> the current state is
-                            released under the :ci tag <a href="https://ci-website.robertfent.dev/">here</a>
+                            released under the :ci tag <a href="https://ci-website.robertfent.dev/">here</a>.
                         </p>
                         <p>
-                            tbd DevOps (GitHub workflow, issues, pr)
+                            The current production version is represented in the <a
+                                href="https://github.com/RobertFent/myDenoWebsite/tree/master">master branch</a>, while
+                            the current
+                            develop version is represented in the <a
+                                href="https://github.com/RobertFent/myDenoWebsite/tree/develop">develop branch</a>.
+                            To add changes to the develop version a seperated branch has to be created und a pull
+                            request have to be opened. After opening a PR a workflow which builds the website in docker
+                            and runs tests against it is run. If the workflow runs successfully the PR can be merged
+                            into develop. Ideally an <a
+                                href="https://github.com/RobertFent/myDenoWebsite/issues">issue</a> with one of my issue
+                            templates should be created and a PR should close exactly one issue.
                         </p>
                     </div>
                 </div>
@@ -83,7 +94,6 @@
                     <div class="centered-in-parent">
                         <h5>profile</h5>
                         <div class="profile card deep-orange accent-2 z-depth-1">
-
                             <div class="card-content white-text">
                                 <img src="./assets/me.png" width="100">
                                 <table class="centered">
@@ -108,7 +118,8 @@
                                 </table>
                             </div>
                             <div class="card-action">
-                                <a href="https://github.com/RobertFent" class="indigo-text text-darken-3">Check out my Github</a>
+                                <a href="https://github.com/RobertFent" class="indigo-text text-darken-3">Check out my
+                                    Github</a>
                             </div>
                         </div>
                     </div>
@@ -116,23 +127,43 @@
                 <div class="col s12 m4 l4 about-row">
                     <h6>my story</h6>
                     <div class="story">
-                        <p class="h7">Background</p>
-                        <p>
-                            Hello, my name is Robert. I am 23 years old and have a bachelor's degree in media
-                            informatics. This winter I will start the master in computer science.
-                        </p>
-                        <p class="h7">IT Experience</p>
-                        <p>
-                            I worked for nearly two years as a full stack developer at the former startup DioVision Systems GmbH where we developed a time tracking tool for the pharma company Fresenius Kabi. 
-                        </p>
-                        <p>
-                            I am used to develop backends with TypeScript/Javascript in Node or Deno.
-                            I am also experienced in using the programming languages Java, C++, R and Python.
-                        </p>
-                        <p class="h7">Projects</p>
-                        <p>
-                            tbd
-                        </p>
+                        <div class="story-content">
+                            <p class="h7">Background</p>
+                            <p>
+                                Hello, my name is Robert. I am 23 years old and have a bachelor's degree in media
+                                informatics. This winter I will start the master in computer science.
+                            </p>
+                            <p class="h7">IT Experience</p>
+                            <p>
+                                I worked for nearly two years as a full stack developer at the former startup DioVision
+                                Systems GmbH where we developed a time tracking tool for the pharma company Fresenius
+                                Kabi.
+                                While working on my bachelor degree in media informatics I had to do some projects
+                                including
+                                developing an app on Android with <a href="https://developer.android.com/studio">Android
+                                    Studio</a>, an online voice chat running in a browser, a search engine in Java using
+                                the
+                                <a href="https://www.elastic.co/de/elastic-stack/">elastic stack</a> and a Python
+                                program
+                                which may predict the weather using linear regression.
+                            </p>
+                            <p>
+                                I am used to develop backends with <a
+                                    href="https://www.typescriptlang.org/">TypeScript</a>/<a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a> in <a
+                                    href="https://nodejs.org/en/">NodeJS</a> or <a href="https://deno.land/">Deno</a>.
+                                I am also experienced in using the programming languages <a
+                                    href="https://www.java.com/en/">Java</a>, <a
+                                    href="https://www.python.org/">Python</a>
+                                and I am currently learning <a
+                                    href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> for my masters
+                                degree.
+                            </p>
+                            <p class="h7">Projects</p>
+                            <p>
+                                tbd
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
