@@ -330,6 +330,20 @@ main {
         display: none;
     }
 
+    /* set width to max and render as table to vertically center h1 */
+    .header-card {
+        width: 100vw;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* set margin to 0 and reduce font size*/
+    .header-card h1 {
+        margin: 0;
+        font-size: 4em;
+    }
+
     /* make form card bigger */
     .form-card {
         margin-left: 5%;
