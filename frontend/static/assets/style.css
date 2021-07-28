@@ -292,7 +292,7 @@ main {
     }
 
     .nav-header li{
-        zoom: 0.8;
+        zoom: 1;
     }
 
     /* do not display footer (makes problems on mobile phones, sticky footer problem)*/
@@ -300,14 +300,29 @@ main {
         display: none;
     }
 
+    /* increase size of top card */
+    .intro {
+        height: 30vh;
+    }
+
     /* remove margin from header to let sub header fit into card */
     .intro h1 {
         margin: 0;
+        margin-top: 2%;
+    }
+
+    .about-row {
+        height: 85vh;
+    }
+
+    /* make image smaller */
+    .about-content img {
+        max-width: 100px;
     }
 
     /* reduce size of description to not overlap with profile section */
     .website-description {
-        height: 65%;
+        height: 70%;
     }
 
     /* disable bottom line */
