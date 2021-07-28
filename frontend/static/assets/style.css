@@ -300,6 +300,21 @@ main {
         display: none;
     }
 
+    /* remove margin from header to let sub header fit into card */
+    .intro h1 {
+        margin: 0;
+    }
+
+    /* reduce size of description to not overlap with profile section */
+    .website-description {
+        height: 65%;
+    }
+
+    /* disable bottom line */
+    .bottom-line {
+        display: none;
+    }
+
     /* make form card bigger */
     .form-card {
         margin-left: 5%;
