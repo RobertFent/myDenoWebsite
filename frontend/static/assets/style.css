@@ -14,7 +14,7 @@ main {
     height: 5vh;
     top: 0; /* set top to 0 and pos to fixed to make top section sticky */
     position: fixed;
-    z-index: 999;
+    z-index: 999; /* ridiculous high z-index to prevent any element from overlapping on top section*/
 }
 
 .mid-section {
@@ -24,14 +24,11 @@ main {
     margin-bottom: 5vh; /* margin 5 to not overlap with bot 0 content */
 }
 
-/* only display footer on non mobile phones sticky*/
-@media screen and (min-width: 601px) {
-    .bot-section {
-        height: 5vh;
-        width: 100vw;
-        bottom: 0; /* set bot to 0 and pos to fixed to make bot section sticky */
-        position: fixed;
-    }
+.bot-section {
+    height: 5vh;
+    width: 100vw;
+    bottom: 0; /* set bot to 0 and pos to fixed to make bot section sticky */
+    position: fixed;
 }
 
 /* header stuff */
@@ -52,7 +49,7 @@ main {
 }
 
 .nav-header ul li a {
-    height: inherit;
+    height: 100%;
     display: table-cell;
     vertical-align: middle;
 }
@@ -193,14 +190,6 @@ main {
     margin-right: 20%;
 }
 
-/* display form card properly on mobile phones */
-@media screen and (max-width: 600px) {
-    .form-card {
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-}
-
 /* wrapper element for main content of visitor book site */
 .visitors-book {
     height: 70vh;
@@ -255,8 +244,8 @@ main {
 }
 
 
-/* overwrite some values on screens with less then 1080px height (full hd) */
-@media screen and (max-height: 1080px) {
+/* overwrite some values on non mobile phones and screens with less or equal then 1080px height (<= full hd) */
+@media screen and (min-height: 601px) and (max-height: 1080px) {
 
     /* make nav bar a little bit greater on smaller monitors*/
     .top-section {
@@ -284,5 +273,36 @@ main {
     .intro h5 {
         padding: 0.25%;
         font-size: 1em;
+    }
+}
+
+/* mobile phones */
+@media screen and (max-width: 600px) {
+
+    /* line height to zero to let ul stay centered*/
+    .top-section nav {
+        line-height: 0;
+    }
+    
+    .nav-header ul{
+        height: 100%;
+        width: 70%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .nav-header li{
+        zoom: 0.8;
+    }
+
+    /* do not display footer (makes problems on mobile phones, sticky footer problem)*/
+    .bot-section {
+        display: none;
+    }
+
+    /* make form card bigger */
+    .form-card {
+        margin-left: 5%;
+        margin-right: 5%;
     }
 }
