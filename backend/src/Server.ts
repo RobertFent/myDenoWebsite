@@ -18,7 +18,7 @@ const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAUL
 // export this const to use it in controller
 export let versionTag = env.VERSION || VERSION_TAG;
 // append tag if exists
-if (env.TAG) versionTag += `-${env.TAG}`;
+if (env.TAG && env.TAG != 'latest') versionTag += `-${env.TAG}`;
 
 
 // deno-lint-ignore no-explicit-any
