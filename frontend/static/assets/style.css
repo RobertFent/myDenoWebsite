@@ -1,6 +1,6 @@
 body {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     flex-direction: column;
 }
 
@@ -8,33 +8,107 @@ main {
     flex: 1 0 auto;
 }
 
-.nav-header {
-    width: 100%;
-    height: auto;
+/* split website in three parts */
+.top-section {
+    width: 100vw;
+    top: 0; /* set top to 0 and pos to fixed to make top section sticky */
+    position: fixed;
+    z-index: 999; /* ridiculous high z-index to prevent any element from overlapping on top section*/
+}
+
+.mid-section {
+    width: 100vw;
+}
+
+.bot-section {
+    width: 100vw;
+    bottom: 0; /* set bot to 0 and pos to fixed to make bot section sticky */
+    position: fixed;
+}
+
+/* header stuff */
+
+/* make sure top sections stays 5vh and image fits as expected */
+.top-section nav {
+    height: inherit;
+}
+
+/* flex to get img on right, justify content for space between both elements in this class*/
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* flex to show items of list next to each other */
+.nav-header .custom-left {
+    display: flex;
+    justify-content: center;
+}
+
+/* sudo selector: counts for both elements */
+.nav-header :is(li, a) {
+    line-height: 1 !important;
+}
+
+/* first value bot, top; second left, right */
+.nav-header a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 10px 20px;
+    /* padding: 10px 20px 10px 20px; */
 }
 
 .nav-header img {
-    height: 100%;
+    height: 60px;
     width: auto;
     object-fit: contain;
+    padding-right: 1%; /* pad image nicely */
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
 }
 
-.footer {
-    flex-shrink: 0;
+/* footer stuff*/
+.versionTag {
+    padding-left: 5vw;
+    padding-top: 2vh;
 }
 
+/* style for main content of home page */
+
+/* Robert Fent card */
 .intro {
     text-align: center;
-    padding-top: 1%;
-    padding-bottom: 2%;
-    margin-bottom: 30px;
+    display: flex; /* use flexbox to center content nicely */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    padding: 30px 10px;
+}
+
+/* disable margin from materialize */ 
+.intro h1 {
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .intro h5 {
     text-transform: uppercase;
-    padding: 10px;
-    display: inline-block;
     font-size: 1.2em;
+    margin: 0;
+}
+
+/* main part of main page */
+.about {
+    margin: 0 auto;
+    width: 90vw;
+}
+
+.about-row {
+    display: block;
+    height: inherit;
+    text-align: center;
 }
 
 .about h5 {
@@ -49,6 +123,7 @@ main {
     margin-bottom: 1%;
 }
 
+/* define own h7 */
 .h7 { 
     display: block;
     font-size: .64em;
@@ -65,27 +140,88 @@ main {
     margin-bottom: 1%;
 }
 
-.about .website-description {
-    text-align: center;
+.about-content {
+    height: inherit;
+    display: flex;
+    align-items: stretch; /* all child elements with same size */
 }
 
-.about .profile {
+/* left part with scrollable content */
+.website-description {
+    max-height: 400px;
     text-align: center;
+    overflow: scroll;
+    overflow-x: hidden; /* hide bottom scrollbar*/
 }
 
-.form_card {
+/* middle part */
+
+/* wrapper class to center element vertically in its parent */
+.centered-in-parent {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* flex: 1 to fill parent with profile */
+.profile {
+    width: 100%;
+    text-align: center;
+    flex: 1;
+}
+
+/* display flex to replace <table>*/
+.meta-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* select last item */
+.meta-row:last-child {
+    border-bottom: none;
+}
+
+/* use first span inside meta-row */
+.meta-row span:first-child {
+    max-width: 120px;
+    font-weight: 600;
+}
+
+.meta-row span {
+    display: block;
+    width: 100%;
+    text-align: left; 
+}
+
+/* right part */
+.story {
+    height: inherit;
+    padding-top: 5vh;
+}
+
+.story-content {
+    max-height: 500px;
+    overflow: scroll;
+    overflow-x: hidden; /* hide bottom scrollbar*/
+}
+
+/* style for elements in visitors book below */
+
+/* card for user input */
+.form-card {
     margin-left: 20%;
     margin-right: 20%;
 }
 
-@media screen and (max-width: 600px) {
-    .form_card {
-        margin-left: 5%;
-        margin-right: 5%;
-    }
+/* wrapper element for main content of visitor book site */
+.visitors-book {
+    height: 70vh;
+    width: inherit;
 }
 
-.visitor_book_head h5{
+.visitor-book-head h5{
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 1%;
@@ -97,16 +233,175 @@ main {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .visitor-table thead, .visitor-table tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
-/*
-.visitor-table thead {
-    width: calc( 100% - 1em )
-}
-*/
+
 .visitor-table table {
-    width:100%;
+    width: 100%;
+}
+
+/* style for elements in privacy content below */
+.privacy-content {
+    width: inherit;
+    overflow-x: scroll;
+    overflow-x: hidden;
+    padding: 5%;
+}
+
+.privacy-content h1 {
+    margin: 0;
+    margin-top: 2%;
+}
+
+/* change style of scrollbars */
+/* use px for this */
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+/* draggable handle */
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+}
+
+/* overwrite some values for greater monitors */
+@media screen and (min-height: 1250px) {
+
+    /* increase size of website description */
+    .website-description {
+        max-height: 800px;  
+    }
+}
+
+/* overwrite some values on non mobile phones and screens with less or equal then 1080px height (<= full hd) */
+@media screen and (min-height: 601px) and (max-height: 1080px) {
+
+    /* make nav bar a little bit greater on smaller monitors*/
+    .top-section {
+        width: 100vw;
+        top: 0; /* set top to 0 and pos to fixed to make top section sticky */
+        position: fixed;
+    }
+
+    /* make intro card little bit smaller and lower size of h1 and h5 */
+    .intro h1 {
+        font-size: 3em;
+    }
+
+    .intro h5 {
+        padding: 0.25%;
+        font-size: 1em;
+    }
+}
+
+/* media query for width size */
+@media screen and (max-width: 980px) {
+    /* change flex direction on smaller screens to present table properly */
+    .meta-row {
+        flex-direction: column;
+    }
+
+    .privacy-content {
+        padding-top: 60px; /* to prevent overlay with navbar */
+    }
+}
+
+/* change flex direction earlier */
+@media screen and (max-width: 767px) {
+    .about-content {
+        flex-direction: column;
+    }
+
+    .about-content .about-row {
+        width: 100% !important;
+    }
+}
+
+
+/* mobile phones */
+@media screen and (max-width: 600px) {
+
+    /* line height to zero to let ul stay centered*/
+    .top-section nav {
+        line-height: 0;
+    }
+
+    /* use col reverse to place img first */
+    .nav-wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .nav-header a {
+        text-align: center;
+    }
+
+    /* do not display footer (makes problems on mobile phones, sticky footer problem)*/
+    .bot-section {
+        display: none;
+    }
+
+    .intro {
+        margin-top: 90px;
+    }
+
+    /* remove margin from header to let sub header fit into card */
+    .intro h1 {
+        font-size: 2rem;
+    }
+
+    /* make image smaller */
+    .about-content img {
+        max-width: 100px;
+    }
+
+    /* reduce size of description to not overlap with profile section */
+    .website-description {
+        height: 70%;
+    }
+
+    /* disable bottom line */
+    .bottom-line {
+        display: none;
+    }
+
+    /* set width to max and render as table to vertically center h1 */
+    .header-card {
+        width: 100vw;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* set margin to 0 and reduce font size*/
+    .header-card h1 {
+        margin: 0;
+        font-size: 4em;
+    }
+
+    /* make form card bigger */
+    .form-card {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+    .privacy-content {
+        padding-top: 200px; /* to prevent overlay with navbar */
+    }
+
+    /* make heading smaller on mobile and reduce margin */
+    .privacy-content h1 {
+        font-size: 3em;
+    }
+
+    .privacy-content h2 {
+        margin: 0;
+    }
 }
