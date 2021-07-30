@@ -308,6 +308,10 @@ main {
     .meta-row {
         flex-direction: column;
     }
+
+    .privacy-content {
+        padding-top: 60px; /* to prevent overlay with navbar */
+    }
 }
 
 /* change flex direction earlier */
@@ -320,6 +324,7 @@ main {
         width: 100% !important;
     }
 }
+
 
 /* mobile phones */
 @media screen and (max-width: 600px) {
@@ -386,12 +391,12 @@ main {
         margin-left: 5%;
         margin-right: 5%;
     }
-
-    .privacy-content {
-        padding-top: 120px; /* to prevent overlay with navbar */
-    }
     
+    .privacy-content {
+        padding-top: 200px; /* to prevent overlay with navbar */
+    }
 
+    /* make heading smaller on mobile and reduce margin */
     .privacy-content h1 {
         font-size: 3em;
     }
