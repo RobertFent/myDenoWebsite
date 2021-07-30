@@ -1,14 +1,25 @@
-FROM frolvlad/alpine-glibc
+FROM denoland/deno:alpine-1.12.0
 
-# download deps
-RUN apk update && apk add curl && apk add --no-cache bash
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh && cp /root/.deno/bin/deno /bin/deno
-
-# The port that your application listens to.
-# EXPOSE 8070
+# install deps
+RUN apk update && apk add --no-cache bash
 
 WORKDIR /app
 
+# let user deno own this app
+RUN chown -R deno:deno /app
+
+# Prefer not to run as root
+USER deno
+
+# Cache the dependencies as a layer (the following two steps are re-run only when deps.ts is modified).
+# Ideally cache deps.ts will download and compile _all_ external files used in main.ts.
+COPY backend/deps.ts backend/
+COPY backend/tsconfig.json backend/tsconfig.json
+RUN deno cache -c backend/tsconfig.json --unstable backend/deps.ts
+
+# These steps will be re-run upon each file change in your working directory:
 ADD . .
+# Compile the main app so that it doesn't need to be compiled each startup/entry.
+RUN deno cache -c backend/tsconfig.json --unstable backend/src/Server.ts
 
 CMD ["/bin/bash", "scripts/entrypoint.sh"]

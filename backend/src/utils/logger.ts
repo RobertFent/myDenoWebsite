@@ -1,5 +1,5 @@
-import { basename, bold, cyan, green, red, yellow, ensureDir } from '../../deps.ts';
-import { generateTimestamp, generateCurrentDayTimestamp } from "./utils.ts";
+import { basename, bold, cyan, green, red, yellow } from '../../deps.ts';
+import { generateTimestamp } from "./utils.ts";
 import { MongoClientWrapper } from './mongoClientWrapper.ts';
 import { LogEntry } from "../models/logEntry.d.ts";
 
@@ -12,22 +12,6 @@ export enum LogLevel {
     'ERROR'
 }
 
-// deprecated
-// appends given line to log.txt file
-const writeToFile = (line: string): void => {
-    try {
-        const currentDay = generateCurrentDayTimestamp();
-        Deno.writeTextFileSync(`./logs/log_${currentDay}.txt`, `${line}\n`, { append: true });
-    } catch (error) {
-        if (!(error instanceof Deno.errors.NotFound)) {
-            Logger.error('Logger', `Error writing logs! ${error}`);
-        } else {
-            // should never happen
-            console.log('Log folder not found! Check if it is created!');
-        }
-    }
-}
-
 const writeToDB = (timestamp: string, level: string, serviceName: string, message: string): Promise<void> | void => {
     try {
         const logEntry: LogEntry = {
@@ -36,15 +20,10 @@ const writeToDB = (timestamp: string, level: string, serviceName: string, messag
             service: serviceName,
             message: message
         }
-        // only log when db can be accessed and log is not a startup log
-        if (MongoClientWrapper.isConnected && level !== 'STARTUP') return MongoClientWrapper.insertLog(logEntry);
+        return MongoClientWrapper.insertLog(logEntry);
     } catch (error) {
         console.log(`Could not write logs to db: ${error}`);
     }
-}
-
-const setupLogEnv = (): void => { 
-    ensureDir('./logs');
 }
 
 export class Logger {
@@ -57,25 +36,29 @@ export class Logger {
     }
 
     public static init(logLevel: LogLevel) {
-        setupLogEnv();
         this.minLogLevel = logLevel;
-        this.loggerIsInit = true;
         console.log(`minLogLevel: ${logLevelStrings[this.minLogLevel]}`);
     }
 
     private static log(level: LogLevel, colorFct: (str: string) => string, serviceName: string, message: string) {
         const timestamp = generateTimestamp();
         const logLevel = logLevelStrings[level];
-        if (this.loggerIsInit) {
-            // save log to file or db
-            const fileLine = `${timestamp} -- ${logLevel} -- ${serviceName} -- ${message}`;
-            MongoClientWrapper.isConnected && level >= this.minLogLevel ? void writeToDB(timestamp, logLevel, serviceName, message) : writeToFile(fileLine);
-        } else {
-            console.log(`${bold(timestamp)} -- ${green('INFO')} -- ${red(serviceName)} -- no logger is initialized! Cannot log to db or file`);
-        }
+
         // log message anyway
         console.log(`${bold(timestamp)} -- ${colorFct(logLevel)} -- ${colorFct(serviceName)} -- ${message}`);
 
+        // write log not if it is startup
+        if (level != LogLevel.STARTUP) {
+            // save log to db if connected and proper log of proper loglevel
+            if (MongoClientWrapper.isConnected) {
+                if (level >= this.minLogLevel) void writeToDB(timestamp, logLevel, serviceName, message);
+            } else if (serviceName != 'mongoClientWrapper.ts'){
+                console.log(
+                    `${bold(timestamp)} -- ${green(logLevelStrings[LogLevel.ERROR])} --  ` +
+                    `${green(import.meta.url.split('/').pop() as string)} -- DB not connected! Log can't be written..`
+                );
+            }
+        }
     }
 
     public static info(serviceName: string, message: string): void {

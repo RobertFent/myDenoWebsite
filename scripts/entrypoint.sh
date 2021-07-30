@@ -3,7 +3,7 @@
 # check if script is in root folder
 echo "Running script from $PWD"
 
-echo "Launch mode (dev = 0 or prod = 1): $MODE"
+echo "Launch mode (dev = 0 or prod = 1 or ci = 2): $MODE"
 # check if mode is set
 if [ ! -n "$MODE" ]; then
     echo "mode is unset. Setting it to dev.."
@@ -16,8 +16,10 @@ if [[ "$PWD" =~ $REGEX ]]; then
 
     # set proper .env
     if [[ "$MODE" == 1 ]]; then
-        mv example_envs/.env_mongo_network .env
-    else mv example_envs/.env_mongo_network_dev .env
+        cp example_envs/.env_mongo_network .env
+    elif [[ "$MODE" == 2 ]]; then
+        cp example_envs/.env_mongo_network_ci .env
+    else cp example_envs/.env_mongo_network_dev .env
     fi
 
     # args for caching

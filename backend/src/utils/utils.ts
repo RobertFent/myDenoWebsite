@@ -1,4 +1,4 @@
-import { format } from "../../deps.ts";
+import { format, RouterContext } from "../../deps.ts";
 import { Logger } from "./logger.ts";
 
 // this offset makes utc+0 to utc+1; 1hr in ms
@@ -59,7 +59,7 @@ export const getDayFromCustomTimestamp = (timestamp: string): number => {
  * @param ctx RouterContext
  * @returns ip in string format 
  */
-export const getIp = (ctx: any): string => {
+export const getIp = (ctx: RouterContext): string => {
     let realIp;
     try {
         realIp = ctx.request.headers.get('x-real-ip');
