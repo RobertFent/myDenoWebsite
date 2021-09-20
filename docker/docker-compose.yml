@@ -7,8 +7,8 @@ services:
     ports:
       - 27017:27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_ROOT_USERNAME=robert
+      - MONGO_INITDB_ROOT_PASSWORD=test123
     volumes:
       - mongodb:/data/db
       - mongoconfig:/data/configdb
@@ -16,6 +16,10 @@ services:
   my-deno-website:
     image: robertfent1/deno-website:latest
     container_name: my-deno-website
+    environment:
+      - MONGO_USER=robert
+      - MONGO_PASSWORD=test123
+      - MONGO_CONTAINER_NAME=my-mongodb
     ports:
       - 8070:8070
     # network_mode: "host"

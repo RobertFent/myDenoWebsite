@@ -10,7 +10,20 @@ import { Logger, LogLevel } from "./utils/logger.ts";
 const env = dotenv();
 const port = parseInt(env.SERVER_PORT) || SERVER_PORT;
 const hostname = env.HOST_NAME || HOST_NAME;
-const connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
+
+// read credentials from docker env if given
+let connectionString: string;
+const dbUser = Deno.env.get('MONGO_USER');
+const dbPassword = Deno.env.get('MONGO_PASSWORD');
+const dbContainerName = Deno.env.get('MONGO_CONTAINER_NAME');
+
+// use docker credentials prior to .env credentials
+if(dbUser) {
+    connectionString = `mongodb://${dbUser}:${dbPassword}@${dbContainerName}:27017`
+} else {
+    connectionString = env.CONNECTION_STRING || CONNECTION_STRING;
+}
+
 const database = env.DATABASE || DEFAULT_DB;
 // deno-lint-ignore no-explicit-any
 const logLevel = LogLevel[env.LOG_LEVEL as any] as unknown as LogLevel || DEFAULT_LOG_LEVEL;
