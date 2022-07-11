@@ -1,6 +1,6 @@
 ### scripts
-- launch website for dev: ../scripts/launch_website.sh -w -f
-- setup ide: ../scripts/cache -r -t
+- launch website for dev: ./scripts/launch_website.sh -w -f
+- setup ide: ./scripts/cache -r -t
 
 ### useful built in deno tools:
 - deno help | upgrade
@@ -9,13 +9,13 @@
 
 ### caching and lock files workflow
 #### adding new import
-- run ../scripts/cache.sh -t to get types
+- run ./scripts/cache.sh -t to get types
 #### checking out new changes in repo
-- run ../scripts/cache.sh -r to reload cached external deps
-- run ../scripts/cache.sh -d to write external deps and its version into lock file
+- run ./scripts/cache.sh -r to reload cached external deps
+- run ./scripts/cache.sh -d to write external deps and its version into lock file
 - push created lock.json file
 #### pulling changes / fresh install
-- run ../scripts/cache.sh -r -t to reload cached external deps and get types
+- run ./scripts/cache.sh -r -t to reload cached external deps and get types
 
 ### todos
 - only one entry per visitor (save ip to each entry)
